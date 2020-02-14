@@ -30,7 +30,7 @@
         -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self' data: gap: https://ssl.gstatic.com  style-src 'self' ; media-src *; img-src 'self' data: content:;"
+      content="default-src * data: gap: https://ssl.gstatic.com; media-src *; img-src 'self' data: content:;"
     />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
@@ -38,18 +38,269 @@
       name="viewport"
       content="initial-scale=1, width=device-width, viewport-fit=cover"
     />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Hello World</title>
   </head>
   <body>
-    <div class="app">
-      <h1>Apache Cordova</h1>
-      <div id="deviceready" class="blink">
-        <p class="event listening">Connecting to Device</p>
-        <p class="event received">Device is Ready</p>
+    <div class="container">
+      <h1>Edit Profile</h1>
+      <hr />
+      <div class="row">
+        <!-- Left column -->
+        <div class="col-md-5">
+          <div class="card text-center">
+            <div class="card-header">
+              Profile Picture
+            </div>
+            <div class="card-body">
+              <div>
+                <h6>Upload a profile picture...</h6>
+                <img
+                  src="./img/icons8-contacts-filled-200.png"
+                  class="rounded m-3"
+                  id="profile-image"
+                  width="200px"
+                  height="150px"
+                  alt="profile image"
+                />
+
+                <!-- Button trigger modal -->
+                <button
+                  id="open-camera"
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#camera-modal"
+                >
+                  Open Camera
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="camera-modal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="camera-modal-label"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="camera-modal-label">Take a Pic</h5>
+                <button
+                  id="cordova-camera-cancel"
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body text-center rounded">
+                <video id="video-container" autoplay></video>
+              </div>
+              <div class="modal-footer">
+                <button
+                  id="camera-capture"
+                  type="button"
+                  class="btn btn-primary"
+                  data-dismiss="modal"
+                >
+                  Capture
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit form column -->
+        <div class="col-md-7 personal-info">
+          <div class="alert alert-warning alert-dismissable">
+            <a class="panel-close close" data-dismiss="alert">×</a>
+            <i class="fas fa-user"></i>
+            Please upload your <strong>profile picture</strong>.
+          </div>
+          <h3>Personal info</h3>
+
+          <form
+            class="form-horizontal needs-validation"
+            action="post"
+            novalidate
+          >
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="first-name">First name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first-name"
+                  placeholder="First name"
+                  value="James"
+                  required
+                />
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label for="last-name">Last name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="last-name"
+                  placeholder="Last name"
+                  value="Bond"
+                  required
+                />
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label for="email-address">Email address:</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email-address"
+                  placeholder="Email address"
+                  value="007@email.com"
+                  required
+                />
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="city">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  placeholder="City"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="state">State</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="state"
+                  placeholder="State"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Please provide a valid state.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="zip">Zip</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="zip"
+                  placeholder="Zip"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Please provide a valid zip.
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="username">Username</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend"
+                      >@</span
+                    >
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    placeholder="Username"
+                    aria-describedby="inputGroupPrepend"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please choose a username.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label for="password">Password:</label>
+                <input
+                  class="form-control"
+                  type="password"
+                  id="password"
+                  value="11111122333"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="terms-conditions"
+                  required
+                />
+                <label class="form-check-label" for="terms-conditions">
+                  Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input
+                type="submit"
+                class="btn btn-success"
+                value="Save Changes"
+              />
+              <input type="reset" class="btn btn-default" value="Cancel" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
