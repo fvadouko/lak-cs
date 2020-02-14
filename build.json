@@ -1,0 +1,8 @@
+{
+  "electron": {
+    "windows": {
+      "package": ["nsis"],
+      "arch": ["x64"]
+    }
+  }
+}
