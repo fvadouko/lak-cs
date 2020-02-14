@@ -1,10 +1,12 @@
 {
   "browserWindow": {
-    "height": 600,
+    "height": 768,
     "webPreferences": {
       "devTools": true,
       "nodeIntegration": false
     },
-    "width": 800
+    "width": 1024,
+    "darkTheme": true,
+    "resizable": false
   }
 }
