@@ -5,7 +5,20 @@
   "version": "1.0.0",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "dependencies": {
-    "cordova-electron": "^1.1.1"
+    "axios": "^0.18.0",
+    "babel": "^6.1.18",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
+    "cordova-android": "^8.1.0",
+    "cordova-electron": "^1.1.1",
+    "moment": "^2.10.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.0.0",
+    "uglify-js": "^2.6.0",
+    "watchify": "^3.6.1"
   },
   "homepage": "http://cordova.io",
   "license": "Apache-2.0",

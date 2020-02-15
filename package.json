@@ -5,7 +5,15 @@
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "watchify www/js/index.js -o www/js/bundle.js -v -t babelify",
+    "build": "browserify www/js/index.js -t babelify | uglifyjs -mc warnings=false > www/js/bundle.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   },
   "keywords": [
     "ecosystem:cordova"
@@ -13,8 +21,21 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "dependencies": {
+    "axios": "^0.18.0",
+    "babel": "^6.1.18",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
     "cordova-android": "^8.1.0",
-    "cordova-electron": "^1.1.1"
+    "cordova-electron": "^1.1.1",
+    "moment": "^2.10.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.0.0",
+    "uglify-js": "^2.6.0",
+    "watchify": "^3.6.1"
   },
   "devDependencies": {
     "cordova-plugin-whitelist": "^1.3.4"
