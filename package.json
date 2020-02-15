@@ -11,7 +11,15 @@
   },
   "babel": {
     "presets": [
-      "es2015",
+      "latest",
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ],
       "react"
     ]
   },
@@ -21,10 +29,13 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "dependencies": {
+    "@syncfusion/ej2-base": "^17.4.47",
     "axios": "^0.18.0",
     "babel": "^6.1.18",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.2.0",
     "browserify": "^12.0.1",
@@ -34,6 +45,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.0.0",
+    "regenerator-runtime": "^0.13.3",
     "uglify-js": "^2.6.0",
     "watchify": "^3.6.1"
   },

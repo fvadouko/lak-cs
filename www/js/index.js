@@ -18,13 +18,33 @@
  */
 
 "use strict";
-import React, { useState } from "react";
+import "regenerator-runtime/runtime";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-
+import PostAPI from "./postApi";
 
 const App = () => {
-  return <h1>franck</h1>;
+  const [posts, setPosts] = useState([]);
+  const fetchCustomers = async () => {
+    try {
+      const data = await PostAPI.findAll();
+      setPosts(data);
+    } catch (error) {
+      toast.error("Impossible de charger les posts !");
+    }
+  };
+
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
+
+  return (
+    <ul>
+      {console.log(posts)}
+      <li>1</li>
+    </ul>
+  );
 };
 const domContainer = document.querySelector("#app");
 ReactDOM.render(<App />, domContainer);
