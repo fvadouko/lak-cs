@@ -21,8 +21,8 @@
 import "regenerator-runtime/runtime";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-
-import PostAPI from "./postApi";
+import { BlockEvents } from "./components/scheduler";
+import PostAPI from "./services/postApi";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -39,12 +39,7 @@ const App = () => {
     fetchCustomers();
   }, []);
 
-  return (
-    <ul>
-      {console.log(posts)}
-      <li>1</li>
-    </ul>
-  );
+  return <BlockEvents />;
 };
 const domContainer = document.querySelector("#app");
 ReactDOM.render(<App />, domContainer);

@@ -5,6 +5,8 @@
   "version": "1.0.0",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "dependencies": {
+    "@syncfusion/ej2-base": "^17.4.47",
+    "@syncfusion/ej2-react-schedule": "^17.4.47",
     "axios": "^0.18.0",
     "babel": "^6.1.18",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -16,6 +18,7 @@
     "browserify": "^12.0.1",
     "cordova-android": "^8.1.0",
     "cordova-electron": "^1.1.1",
+    "css-modulesify": "^0.28.0",
     "moment": "^2.10.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
