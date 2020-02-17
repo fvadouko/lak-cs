@@ -16,33 +16,54 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 "use strict";
 import "regenerator-runtime/runtime";
-import React, { useEffect, useState } from "react";
+
+import React from "react";
 import ReactDOM from "react-dom";
-import { BlockEvents } from "./components/scheduler";
-import PostAPI from "./services/postApi";
+import { HashRouter, Route, Switch } from "react-router-dom";
+
+import Homepage from "./pages/HomePage";
+import Planningpage from "./pages/PlanningPage";
 
 const App = () => {
-  const [posts, setPosts] = useState([]);
-  const fetchCustomers = async () => {
-    try {
-      const data = await PostAPI.findAll();
-      setPosts(data);
-    } catch (error) {
-      toast.error("Impossible de charger les posts !");
-    }
-  };
-
-  useEffect(() => {
-    fetchCustomers();
-  }, []);
-
-  return <BlockEvents />;
+  return (
+    <HashRouter>
+      <Switch>
+        <Route path="/planning" component={Planningpage} />
+        <Route path="/" component={Homepage} />
+      </Switch>
+    </HashRouter>
+  );
 };
-const domContainer = document.querySelector("#app");
-ReactDOM.render(<App />, domContainer);
+
+const rootElement = document.querySelector("#app");
+ReactDOM.render(<App />, rootElement);
+
+// import React, { useEffect, useState } from "react";
+// import ReactDOM from "react-dom";
+// import { BlockEvents } from "./components/scheduler";
+// import PostAPI from "./services/postApi";
+
+// const App = () => {
+//   const [posts, setPosts] = useState([]);
+//   const fetchCustomers = async () => {
+//     try {
+//       const data = await PostAPI.findAll();
+//       setPosts(data);
+//     } catch (error) {
+//       toast.error("Impossible de charger les posts !");
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchCustomers();
+//   }, []);
+
+//   return <BlockEvents />;
+// };
+// const domContainer = document.querySelector("#app");
+// ReactDOM.render(<App />, domContainer);
 
 // var app = {
 //   // Application Constructor

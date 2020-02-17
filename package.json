@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "watchify www/js/index.js -o www/js/bundle.js -v -t babelify",
-    "build": "browserify www/js/components/scheduler/index.js -p [ css-modulesify -o www/css/cpp.css ]  -t  babelify | uglifyjs -mc  warnings=false > www/js/bundle.js"
+    "build": "browserify www/js/app.js -p [ css-modulesify -o www/css/cpp.css ]  -t  babelify | uglifyjs -mc  warnings=false > www/js/bundle.js"
   },
   "babel": {
     "presets": [

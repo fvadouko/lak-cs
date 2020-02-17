@@ -124,3 +124,21 @@ h1 {
   animation: fade 3000ms infinite;
   -webkit-animation: fade 3000ms infinite;
 }
+
+.btn {
+  display: inline-block;
+}
+
+.place {
+  width: 100%;
+  position: absolute;
+  top: 70%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.place-bis {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}

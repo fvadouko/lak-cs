@@ -22,7 +22,7 @@ import * as dataSource from "./datasource.json";
 /**
  * schedule block events sample
  */
-export class BlockEvents extends SampleBase {
+export default class BlockEvents extends SampleBase {
   constructor() {
     super(...arguments);
     this.data = extend([], dataSource.blockData, null, true);
@@ -152,4 +152,4 @@ export class BlockEvents extends SampleBase {
   }
 }
 
-render(<BlockEvents />, document.getElementById("sample"));
+//render(<BlockEvents />, document.getElementById("sample"));
