@@ -142,3 +142,17 @@ h1 {
   display: flex;
   justify-content: space-around;
 }
+
+.place-bis-bis {
+  width: 50%;
+    /* position: absolute; */
+    top: 40%;
+    /* justify-content: space-around; */
+    display: block;
+    margin: 0 auto;
+}
+
+.btn-c {
+  display: flex;
+  justify-content: space-around;
+}

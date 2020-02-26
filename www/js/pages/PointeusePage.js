@@ -1,13 +1,13 @@
 import React from "react";
-import BlockEvents from "../components/scheduler/index";
 import { Link } from "react-router-dom";
+import PointeuseComponent from "../components/pointeuse";
 
-const Planningpage = props => {
+const Pointeusepage = props => {
   return (
     <div>
-      <h3 className="text-center">Planning</h3>
+      <h3 className="text-center">Pointeuse</h3>
       <br />
-      <BlockEvents />
+      <PointeuseComponent />
       <div className="place-bis">
         <Link to="/">
           <button
@@ -24,4 +24,4 @@ const Planningpage = props => {
   );
 };
 
-export default Planningpage;
+export default Pointeusepage;

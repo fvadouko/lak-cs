@@ -1,13 +1,12 @@
 import React from "react";
-import BlockEvents from "../components/scheduler/index";
+import Enrgistrement from "../components/formulaires/Enregistrement";
 import { Link } from "react-router-dom";
-
-const Planningpage = props => {
+const EmployePage = props => {
   return (
     <div>
-      <h3 className="text-center">Planning</h3>
+      <h3 className="text-center">Ajout employé</h3>
       <br />
-      <BlockEvents />
+      <Enrgistrement />
       <div className="place-bis">
         <Link to="/">
           <button
@@ -24,4 +23,4 @@ const Planningpage = props => {
   );
 };
 
-export default Planningpage;
+export default EmployePage;

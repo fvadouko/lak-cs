@@ -5170,7 +5170,8 @@
       "StartTime": "2018-08-03T02:30:00.000Z",
       "EndTime": "2018-08-03T05:00:00.000Z",
       "IsAllDay": false,
-      "EmployeeId": 3
+      "EmployeeId": 3,
+      "Text": "Franck"
     },
     {
       "Id": 10,
@@ -5178,7 +5179,8 @@
       "StartTime": "2018-08-02T08:00:00.000Z",
       "EndTime": "2018-08-02T09:30:00.000Z",
       "IsAllDay": false,
-      "EmployeeId": 4
+      "EmployeeId": 4,
+      "Text": "Franck"
     },
     {
       "Id": 11,
@@ -5186,7 +5188,8 @@
       "StartTime": "2018-08-01T04:30:00.000Z",
       "EndTime": "2018-08-01T07:30:00.000Z",
       "IsAllDay": false,
-      "EmployeeId": 5
+      "EmployeeId": 5,
+      "Text": "Franck"
     },
     {
       "Id": 12,

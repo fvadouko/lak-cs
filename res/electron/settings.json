@@ -3,6 +3,7 @@
     "fullscreen": true,
     "darkTheme": true,
     "resizable": false,
+    "autoHideMenuBar": true,
     "webPreferences": {
       "nodeIntegration": false
     }
