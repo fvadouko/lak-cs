@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { extend, L10n, loadCldr } from "@syncfusion/ej2-base";
+import { extend, L10n, loadCldr } from "./node_modules/@syncfusion/ej2-base";
 import {
   Day,
   DragAndDrop,
@@ -14,17 +14,17 @@ import {
   TimelineViews,
   ViewDirective,
   ViewsDirective
-} from "@syncfusion/ej2-react-schedule";
-import * as gregorian from "cldr-data/main/fr/ca-gregorian.json";
-import * as numbers from "cldr-data/main/fr/numbers.json";
-import * as timeZoneNames from "cldr-data/main/fr/timeZoneNames.json";
-import * as numberingSystems from "cldr-data/supplemental/numberingSystems.json";
-import * as _ from "lodash";
-import * as React from "react";
+} from "./node_modules/@syncfusion/ej2-react-schedule";
+import * as gregorian from "./node_modules/cldr-data/main/fr/ca-gregorian.json.js";
+import * as numbers from "./node_modules/cldr-data/main/fr/numbers.json.js";
+import * as timeZoneNames from "./node_modules/cldr-data/main/fr/timeZoneNames.json.js";
+import * as numberingSystems from "./node_modules/cldr-data/supplemental/numberingSystems.json.js";
+import * as _ from "./node_modules/lodash";
+import * as React from "./node_modules/react";
 
 import postApi from "../../services/eventApi";
-import * as dataSource from "./datasource.json";
-import * as localeTexts from "./locale.json";
+import * as dataSource from "./datasource.json.js.js";
+import * as localeTexts from "./locale.json.js.js";
 import { SampleBase } from "./sample-base";
 
 loadCldr(numberingSystems, gregorian, numbers, timeZoneNames);
