@@ -7,6 +7,12 @@ const Enrgistrement = props => {
   const [firstname, setFirstname] = useState("Nom");
   const [designation, setDesignation] = useState("Désignation");
   const [picture, setPicture] = useState("");
+
+  //  AJOUT PASSWORD & TAUX HORAIRE  /////////////////////////
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [hourlyrate, setHourlyrate] = useState(0);
+
   /**
    * Gestion des changements des inputs dans le formulaire
    * @param {*} param0
@@ -23,6 +29,18 @@ const Enrgistrement = props => {
     if (name == "designation") {
       setDesignation(value);
     }
+
+    //  AJOUT PASSWORD & TAUX HORAIRE   ////////////////////////
+    if (name == "password") {
+      setPassword(value);
+    }
+    if (name == "confirmPassword") {
+      setConfirmPassword(value);
+    }
+    if (name == "hourlyrate") {
+      setHourlyrate(value);
+    }
+
     //setEmployee({ ...employee, [name]: value });
   };
 
@@ -32,11 +50,16 @@ const Enrgistrement = props => {
    */
   const handleSubmit = async event => {
     event.preventDefault();
-    try {
-      await userApi.create(firstname, lastname, designation, picture);
-    } catch (error) {
-      console.log("error", error);
+    if(password===confirmPassword){
+        try {
+          await userApi.create(firstname, lastname, designation, picture,password,hourlyrate);
+        } catch (error) {
+          console.log("error", error);
+        }
+    }else{
+      alert("Erreur de confirmation du password !");
     }
+    
   };
 
   return (
@@ -47,7 +70,8 @@ const Enrgistrement = props => {
             <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
               <div class="px-2">
                 <form onSubmit={handleSubmit} class="justify-content-center">
-                  <div class="form-group">
+                  
+                <div class="form-group">
                     <label class="sr-only">Nom</label>
                     <input
                       type="text"
@@ -56,6 +80,7 @@ const Enrgistrement = props => {
                       name="lastname"
                       value={lastname}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -67,8 +92,10 @@ const Enrgistrement = props => {
                       placeholder="Prénom"
                       value={firstname}
                       onChange={handleChange}
+                      required
                     />
                   </div>
+
                   <div class="form-group">
                     <select
                       class="form-control"
@@ -77,6 +104,7 @@ const Enrgistrement = props => {
                       required="required"
                       value={designation}
                       onChange={handleChange}
+                      required
                     >
                       <option>Désignation</option>
                       <option>Ressource Humaine</option>
@@ -84,6 +112,42 @@ const Enrgistrement = props => {
                       <option>Comptable</option>
                     </select>
                   </div>
+
+
+                  <div class="form-group">
+                    <label class="sr-only">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="password"
+                      value={password}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="sr-only">Confirmer password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="confirmPassword"
+                      placeholder="Confirmer le password"
+                      value={confirmPassword}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="sr-only">Taux horaire</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="hourlyrate"
+                      placeholder="Taux horaire"
+                      value={hourlyrate}
+                      onChange={handleChange}
+                    />
+                  </div>
+
                   <div class="form-group mt-3 md-form">
                     <div class="file-field">
                       <div class="mb-4 text-center">
@@ -118,6 +182,7 @@ const Enrgistrement = props => {
                   <button type="submit" class="btn btn-light btn-lg">
                     S'enregister
                   </button>
+
                 </form>
               </div>
             </div>

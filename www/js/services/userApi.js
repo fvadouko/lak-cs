@@ -1,4 +1,4 @@
-function create(firstname, lastname, designation, picture) {
+function create(firstname, lastname, designation, picture,password,hourlyrate) {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
@@ -6,8 +6,13 @@ function create(firstname, lastname, designation, picture) {
     firstname: firstname,
     lastname: lastname,
     designation: designation,
-    picture: picture
+    picture: picture,
+    passwords: password,
+    hourlyrate: parseInt(hourlyrate),
+    createdAt:new Date()
   });
+
+  console.log(raw);
 
   var requestOptions = {
     method: "POST",
