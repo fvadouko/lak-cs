@@ -1,6 +1,7 @@
 import React from "react";
-import BlockEvents from "../components/scheduler/index";
+
 import { Link } from "react-router-dom";
+import BlockEvents from "../components/planning";
 
 const Planningpage = props => {
   return (
