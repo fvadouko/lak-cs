@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { enableRipple } from "@syncfusion/ej2-base";
 enableRipple(true);
 
