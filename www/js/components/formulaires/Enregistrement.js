@@ -6,7 +6,10 @@ const Enrgistrement = props => {
   const [lastname, setLastname] = useState("Prénom");
   const [firstname, setFirstname] = useState("Nom");
   const [designation, setDesignation] = useState("Désignation");
-  const [picture, setPicture] = useState("");
+  const [picture, setPicture] = useState(
+    "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+  );
+  const [loading, setLoading] = useState(0);
   /**
    * Gestion des changements des inputs dans le formulaire
    * @param {*} param0
@@ -23,6 +26,9 @@ const Enrgistrement = props => {
     if (name == "designation") {
       setDesignation(value);
     }
+    if (name == "picture") {
+      setPicture(value);
+    }
     //setEmployee({ ...employee, [name]: value });
   };
 
@@ -32,8 +38,21 @@ const Enrgistrement = props => {
    */
   const handleSubmit = async event => {
     event.preventDefault();
+    setLoading(1);
+    const input = document.querySelector('input[type="file"]');
     try {
-      await userApi.create(firstname, lastname, designation, picture);
+      let success = await userApi.create(
+        firstname,
+        lastname,
+        designation,
+        input.files[0]
+      );
+      if (success) {
+        setLoading(2);
+        console.log(success);
+        let data = JSON.parse(success);
+        setPicture(data.picture);
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -88,11 +107,12 @@ const Enrgistrement = props => {
                     <div class="file-field">
                       <div class="mb-4 text-center">
                         <img
-                          src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+                          src={picture}
                           class="rounded-circle z-depth-1-half avatar-pic"
                           alt="example placeholder avatar"
                           style={{ width: "80px" }}
                         />
+
                         <br />
                         <div className="text-center" style={{ color: "#000" }}>
                           Photo
@@ -101,8 +121,12 @@ const Enrgistrement = props => {
                       <div class="panel">
                         <div class="button_outer">
                           <div class="btn_upload">
-                            <input type="file" id="upload_file" name="" />
-                            Téléverser Image
+                            <input
+                              type="file"
+                              id="upload_file"
+                              name="picture"
+                              style={{ color: "#000" }}
+                            />
                           </div>
                           <div class="processing_bar"></div>
                           <div class="success_box"></div>
@@ -115,9 +139,21 @@ const Enrgistrement = props => {
                     </div>
                   </div>
 
-                  <button type="submit" class="btn btn-light btn-lg">
-                    S'enregister
-                  </button>
+                  {loading === 0 && (
+                    <button type="submit" class="btn btn-light btn-lg">
+                      S'enregister
+                    </button>
+                  )}
+                  {loading === 1 && (
+                    <button type="submit" class="btn btn-light btn-lg">
+                      Enregistrement en cours ...
+                    </button>
+                  )}
+                  {loading === 2 && (
+                    <button type="submit" class="btn btn-success btn-lg">
+                      Enregistré
+                    </button>
+                  )}
                 </form>
               </div>
             </div>
