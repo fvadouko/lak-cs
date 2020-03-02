@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import userApi from "../../services/userApi";
 
 const Enrgistrement = props => {
-  const [lastname, setLastname] = useState("Prénom");
-  const [firstname, setFirstname] = useState("Nom");
-  const [designation, setDesignation] = useState("Désignation");
+  const [lastname, setLastname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [designation, setDesignation] = useState("");
   const [picture, setPicture] = useState("");
 
   //  AJOUT PASSWORD & TAUX HORAIRE  /////////////////////////
@@ -123,6 +123,7 @@ const Enrgistrement = props => {
                       placeholder="password"
                       value={password}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -134,6 +135,7 @@ const Enrgistrement = props => {
                       placeholder="Confirmer le password"
                       value={confirmPassword}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div class="form-group">
@@ -145,6 +147,7 @@ const Enrgistrement = props => {
                       placeholder="Taux horaire"
                       value={hourlyrate}
                       onChange={handleChange}
+                      required
                     />
                   </div>
 
