@@ -4,6 +4,10 @@ import paiesApi from "../../services/paiesApi";
 
 const Tableau = ({ onChangePageOne }) => {
   const [paies, setPaies] = useState([]);
+  const [periode, setPeriode] = useState("Fevrier 2020");
+  const [months, setMonths] = useState([]);
+  const [curMonth, setcurMonth] = useState(0);
+
 
   const fetchPaies = async () =>{
     try {
@@ -15,7 +19,33 @@ const Tableau = ({ onChangePageOne }) => {
     }
   }
 
+  const getPeriode = ()=>{
+    const currentDate = new Date();
+    const year = current_date.getYear();
+    
+
+  }
+
+  const monthListe = ()=>{
+    let list=[];
+    const cm = new Date().getMonth();
+    const month = ["Janvier","Février","Mars",
+    "Avril","Mai","Juin",
+    "Juillet","Août","Septembre",
+    "Octobre","Novembre","Décembre"];
+
+    for(let i=0;i<=cm;i++){
+        list.push(month[i])
+    }
+    setMonths(list);
+  }
+
+    const handlePeriode = ()=>{
+
+    }
+
   useEffect(() =>{
+    monthListe();
     fetchPaies();
   },[])
   
@@ -28,6 +58,30 @@ const Tableau = ({ onChangePageOne }) => {
             <div class="table100-head">
               <table>
                 <thead>
+                  <tr class="row100 head">
+                    <th class="cell100 column1" colSpan="4" style={{paddingLeft:"100px"}}>
+
+                      <div>
+                          <select
+                            class="form-control"
+                            id="exampleFormControlSelect1"
+                            name="periode"
+                            onChange={handlePeriode}
+                          >
+                            {
+                              months.map(month=>{
+                                return(
+                                  <option value={month}>{month}</option>
+                                )
+                              })
+                            }
+
+                          </select>
+                      </div>
+
+                    </th>
+                  </tr>
+
                   <tr class="row100 head">
                     <th class="cell100 column1">Employes</th>
                     <th class="cell100 column2 text-center">
