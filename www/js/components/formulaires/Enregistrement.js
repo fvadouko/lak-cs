@@ -122,9 +122,10 @@ const Enrgistrement = props => {
                       required
                     >
                       <option>Désignation</option>
-                      <option>Ressource Humaine</option>
                       <option>Caisse</option>
                       <option>Comptable</option>
+                      <option>Informaticien</option>
+                      <option>Ressource Humaine</option>
                     </select>
                   </div>
 

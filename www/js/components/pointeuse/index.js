@@ -7,11 +7,15 @@ const PointeuseComponent = props => {
   const [departures, setDepartures] = useState(null);
   //const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+ 
   const [nom, setNom] = useState("");
   const [horloge, setHorloge] = useState("");
 
+  
+
   useEffect(() => {
     showDate();
+    
     const initialDate = new Date();
 
     const options = {

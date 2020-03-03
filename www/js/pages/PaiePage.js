@@ -19,10 +19,11 @@ const Paiepage = props => {
     // }, 6000);
   });
 
-  const handleChangePageOne = () => {
+  const handleChangePageOne = (value) => {
     setTables(false);
     setFiches(true);
     setDetails(false);
+
   };
   const handleChangePageTwo = () => {
     setTables(false);
@@ -34,7 +35,7 @@ const Paiepage = props => {
       <h3 className="text-center">Paies</h3>
       <br />
       {tables ? <Tableau onChangePageOne={handleChangePageOne} /> : null}
-      {fiches ? <Fiche onChangePageTwo={handleChangePageTwo} /> : null}
+      {fiches ? <Fiche onChangePageTwo={handleChangePageTwo}  /> : null}
       {details ? <Detail /> : null}
       {/* {fiche ?  : null} */}
       <div className="place-bis">

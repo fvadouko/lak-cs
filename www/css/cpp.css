@@ -1,22 +1,22 @@
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__template-wrap {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__template-wrap {
   width: 100%;
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__e-vertical-view ._A_A_www_js_components_planning_index__e-resource-cells {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__e-vertical-view ._C_C_www_js_components_planning_index__e-resource-cells {
   height: 58px;
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__e-timeline-view ._A_A_www_js_components_planning_index__e-resource-left-td,
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__e-timeline-month-view ._A_A_www_js_components_planning_index__e-resource-left-td {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__e-timeline-view ._C_C_www_js_components_planning_index__e-resource-left-td,
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__e-timeline-month-view ._C_C_www_js_components_planning_index__e-resource-left-td {
   width: 170px;
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__e-resource-cells._A_A_www_js_components_planning_index__e-child-node ._A_A_www_js_components_planning_index__employee-category,
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__e-resource-cells._A_A_www_js_components_planning_index__e-child-node ._A_A_www_js_components_planning_index__employee-name {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__e-resource-cells._C_C_www_js_components_planning_index__e-child-node ._C_C_www_js_components_planning_index__employee-category,
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__e-resource-cells._C_C_www_js_components_planning_index__e-child-node ._C_C_www_js_components_planning_index__employee-name {
   padding: 5px;
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__employee-image {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__employee-image {
   width: 45px;
   height: 40px;
   float: left;
@@ -26,40 +26,40 @@
   background-size: 45px;
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__employee-name {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__employee-name {
   font-size: 13px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__employee-designation {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__employee-designation {
   font-size: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__template-wrap ._A_A_www_js_components_planning_index__employee-image._A_A_www_js_components_planning_index__alice {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__template-wrap ._C_C_www_js_components_planning_index__employee-image._C_C_www_js_components_planning_index__alice {
   background-image: url("https://ej2.syncfusion.com/react/demos/src/schedule/images/alice.png");
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__template-wrap ._A_A_www_js_components_planning_index__employee-image._A_A_www_js_components_planning_index__robert {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__template-wrap ._C_C_www_js_components_planning_index__employee-image._C_C_www_js_components_planning_index__robert {
   background-image: url("https://ej2.syncfusion.com/react/demos/src/schedule/images/robert.png");
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__template-wrap ._A_A_www_js_components_planning_index__employee-image._A_A_www_js_components_planning_index__robson {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__template-wrap ._C_C_www_js_components_planning_index__employee-image._C_C_www_js_components_planning_index__robson {
   background-image: url("https://ej2.syncfusion.com/react/demos/src/schedule/images/robson.png");
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__template-wrap ._A_A_www_js_components_planning_index__employee-image._A_A_www_js_components_planning_index__laura {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__template-wrap ._C_C_www_js_components_planning_index__employee-image._C_C_www_js_components_planning_index__laura {
   background-image: url("https://ej2.syncfusion.com/react/demos/src/schedule/images/laura.png");
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__template-wrap ._A_A_www_js_components_planning_index__employee-image._A_A_www_js_components_planning_index__nancy {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__template-wrap ._C_C_www_js_components_planning_index__employee-image._C_C_www_js_components_planning_index__nancy {
   background-image: url("https://ej2.syncfusion.com/react/demos/src/schedule/images/nancy.png");
 }
 
-._A_A_www_js_components_planning_index__block-events._A_A_www_js_components_planning_index__e-schedule ._A_A_www_js_components_planning_index__template-wrap ._A_A_www_js_components_planning_index__employee-image._A_A_www_js_components_planning_index__margaret {
+._C_C_www_js_components_planning_index__block-events._C_C_www_js_components_planning_index__e-schedule ._C_C_www_js_components_planning_index__template-wrap ._C_C_www_js_components_planning_index__employee-image._C_C_www_js_components_planning_index__margaret {
   background-image: url("https://ej2.syncfusion.com/react/demos/src/schedule/images/margaret.png");
 }
