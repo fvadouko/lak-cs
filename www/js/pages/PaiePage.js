@@ -10,6 +10,7 @@ const Paiepage = props => {
   const [tables, setTables] = useState(true);
   const [fiches, setFiches] = useState(false);
   const [details, setDetails] = useState(false);
+  //const [paieByUser, setPaieByUser] = useState([]);
 
   useEffect(() => {
     //setTables(true);
@@ -25,17 +26,19 @@ const Paiepage = props => {
     setDetails(false);
 
   };
+
   const handleChangePageTwo = () => {
     setTables(false);
     setFiches(false);
     setDetails(true);
   };
+
   return (
     <div>
       <h3 className="text-center">Paies</h3>
       <br />
       {tables ? <Tableau onChangePageOne={handleChangePageOne} /> : null}
-      {fiches ? <Fiche onChangePageTwo={handleChangePageTwo}  /> : null}
+      {fiches ? <Fiche onChangePageTwo={handleChangePageTwo}  paieByUser = {paieByUser}/> : null}
       {details ? <Detail /> : null}
       {/* {fiche ?  : null} */}
       <div className="place-bis">

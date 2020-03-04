@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Fiche = ({ onChangePageTwo }) => {
+
+const Fiche = ({ onChangePageTwo, paieByUser, paieByWeek }) => {
+  let papa = 0;
   return (
     <div>
       <div class="limiter">
@@ -23,6 +25,7 @@ const Fiche = ({ onChangePageTwo }) => {
             <tbody>
               <tr onClick={() => onChangePageTwo()}>
                 <td style={{ width: "58%" }}></td>
+                <td className="text-center">S5</td>
                 <td className="text-center">S5</td>
                 <td className="text-center">S6</td>
                 <td className="text-center">S7</td>
@@ -69,13 +72,16 @@ const Fiche = ({ onChangePageTwo }) => {
                 <td className="text-center">+2</td>
               </tr>
 
-              <tr>
-                <td>Modifs manuelles du compteur</td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-              </tr>
+              {/*}
+                <tr>
+                  <td>Modifs manuelles du compteur</td>
+                  <td className="text-center"></td>
+                  <td className="text-center"></td>
+                  <td className="text-center"></td>
+                  <td className="text-center"></td>
+                </tr>
+              */}
+
             </tbody>
           </table>
         </div>

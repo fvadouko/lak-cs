@@ -4,49 +4,52 @@ import paiesApi from "../../services/paiesApi";
 
 const Tableau = ({ onChangePageOne }) => {
   const [paies, setPaies] = useState([]);
-  const [periode, setPeriode] = useState("Fevrier 2020");
   const [months, setMonths] = useState([]);
-  const [curMonth, setcurMonth] = useState(0);
+  const [curMonth, setcurMonth] = useState();
+  const [curYear, setcurYear] = useState();
+
+  const month_string = ["janvier","février","mars",
+    "avril","mai","juin",
+    "juillet","août","septembre",
+    "octobre","novembre","décembre"];
+  
+  var list = [];
 
 
-  const fetchPaies = async () =>{
+  const fetchPaies = async (year,month) =>{
+  
     try {
-      let pt = await paiesApi.findAll();
-      console.log(pt)
-      setPaies(pt)
+      let pt = await paiesApi.findAll(year,month);
+      console.log("le resultat "+pt);
+      setPaies(pt);
     } catch (error) {
       console.log("error", error)
     }
   }
 
-  const getPeriode = ()=>{
-    const currentDate = new Date();
-    const year = current_date.getYear();
-    
+  const handlePeriodePaie = (e)=>{
+    let cYear = new Date().getFullYear();
+    let cMonth = e.target.value;
+
+    setcurMonth(cMonth);
+    fetchPaies(cYear,cMonth);
 
   }
-
-  const monthListe = ()=>{
-    let list=[];
-    const cm = new Date().getMonth();
-    const month = ["Janvier","Février","Mars",
-    "Avril","Mai","Juin",
-    "Juillet","Août","Septembre",
-    "Octobre","Novembre","Décembre"];
-
-    for(let i=0;i<=cm;i++){
-        list.push(month[i])
-    }
-    setMonths(list);
-  }
-
-    const handlePeriode = ()=>{
-
-    }
 
   useEffect(() =>{
-    monthListe();
-    fetchPaies();
+    let cYear = new Date().getFullYear();
+    const cm = new Date().getMonth();
+    let cMonth = month_string[cm];
+    let list = [];
+
+    for(let i=0;i<=cm;i++){
+      list.push(month_string[i])
+    }
+    console.log("La liste de mois: "+list);
+    setMonths(list);
+    setcurMonth(cMonth);
+    setcurYear(cYear);
+    fetchPaies(cYear,cMonth);
   },[])
   
   return (
@@ -66,13 +69,14 @@ const Tableau = ({ onChangePageOne }) => {
                             class="form-control"
                             id="exampleFormControlSelect1"
                             name="periode"
-                            onChange={handlePeriode}
+                            value={curMonth}
+                            onChange={handlePeriodePaie}
                           >
                             {
                               months.map(month=>{
                                 return(
-                                  <option value={month}>{month}</option>
-                                )
+                                  <option value={month}>{month} {curYear}</option>
+                                  )
                               })
                             }
 
