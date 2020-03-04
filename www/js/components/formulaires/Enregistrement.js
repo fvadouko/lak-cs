@@ -6,7 +6,9 @@ const Enrgistrement = props => {
   const [lastname, setLastname] = useState("");
   const [firstname, setFirstname] = useState("");
   const [designation, setDesignation] = useState("");
-  const [picture, setPicture] = useState("https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg");
+  const [picture, setPicture] = useState(
+    "https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+  );
 
   //  AJOUT PASSWORD & TAUX HORAIRE  /////////////////////////
   const [password, setPassword] = useState("");
@@ -22,7 +24,6 @@ const Enrgistrement = props => {
     const { value, name } = currentTarget;
     if (name == "firstname") {
       setFirstname(value);
-      setPicture(value + ".png");
     }
     if (name == "lastname") {
       setLastname(value);
@@ -54,27 +55,28 @@ const Enrgistrement = props => {
     setLoading(1);
     const input = document.querySelector('input[type="file"]');
     try {
-      if(password===confirmPassword){
-      let success = await userApi.create(
-        firstname,
-        lastname,
-        designation,
-        input.files[0],
-        password,hourlyrate
-      );
-      if (success) {
-        setLoading(2);
-        console.log(success);
-        let data = JSON.parse(success);
-        setPicture(data.picture);
+      if (password === confirmPassword) {
+        let success = await userApi.create(
+          firstname,
+          lastname,
+          designation,
+          input.files[0],
+          password,
+          hourlyrate
+        );
+        if (success) {
+          setLoading(2);
+          let data = JSON.parse(success);
+          console.log(data);
+          console.log(data.picture);
+          setPicture("http://localhost:5000/media/" + data.picture);
+        }
+      } else {
+        alert("Erreur de confirmation du password !");
       }
-     }else{
-      alert("Erreur de confirmation du password !");
-    }
     } catch (error) {
       console.log("error", error);
     }
-    
   };
 
   return (
@@ -85,8 +87,7 @@ const Enrgistrement = props => {
             <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
               <div class="px-2">
                 <form onSubmit={handleSubmit} class="justify-content-center">
-                  
-                <div class="form-group">
+                  <div class="form-group">
                     <label class="sr-only">Nom</label>
                     <input
                       type="text"
@@ -128,7 +129,6 @@ const Enrgistrement = props => {
                       <option>Ressource Humaine</option>
                     </select>
                   </div>
-
 
                   <div class="form-group">
                     <label class="sr-only">Password</label>
