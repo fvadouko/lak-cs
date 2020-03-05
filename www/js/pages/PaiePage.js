@@ -122,7 +122,10 @@ const getUser = async (id) =>{
       tplanninghours = {tplanninghours}/> : null
       }
 
-      {details ? <Detail /> : null}
+      {details ? <Detail  
+      user = {user}
+      year = {fyear}
+      month = {fmonth}/> : null}
       {/* {fiche ?  : null} */}
       <div className="place-bis">
         <Link to="/">

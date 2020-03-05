@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 const Fiche = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overtimes, user, year, month }) => {
-  console.log('la semaine ici '+wksbyuser)
+
   return (
     <div>
       <div class="limiter">
@@ -18,7 +18,7 @@ const Fiche = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overtim
                       {user.lastname} <br /> {user.firstname}
                     </h6>
                   </span>
-                  <p className="text-center month-title">
+                  <p className="text-center month-title" style={{ fontWeight: "bold" }}>
                       { month} {year}
                   </p>
                 </th>

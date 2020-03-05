@@ -64,13 +64,14 @@ const Tableau = ({ onChangePageOne }) => {
                   <tr class="row100 head">
                     <th class="cell100 column1" colSpan="4" style={{paddingLeft:"100px"}}>
 
-                      <div>
+                      <div >
                           <select
                             class="form-control"
                             id="exampleFormControlSelect1"
                             name="periode"
                             value={curMonth}
                             onChange={handlePeriodePaie}
+                            style={{marginTop:"-10px"}}
                           >
                             {
                               months.map(month=>{
@@ -86,7 +87,7 @@ const Tableau = ({ onChangePageOne }) => {
                     </th>
                   </tr>
 
-                  <tr class="row100 head">
+                  <tr class="row100">
                     <th class="cell100 column1">Employes</th>
                     <th class="cell100 column2 text-center">
                       Vol Horaire mensuel
@@ -105,10 +106,13 @@ const Tableau = ({ onChangePageOne }) => {
             <div class="table100-body js-pscroll">
               <table>
                 <tbody>
+                <tr style={{marginTop:"70px"}}><td></td></tr>
                 {
                   paies.map(pt =>{
                     return(
-                      <tr class="row100 body" onClick={() => onChangePageOne(pt.year,pt.month,pt.user)}>
+                      <tr class="row100 body" 
+                          onClick={() => onChangePageOne(pt.year,pt.month,pt.user)} 
+                      >
                       <td class="cell100 column1">
                         <img src="img/avatar.png" />
                           {pt.name}
