@@ -8,6 +8,7 @@ const Tableau = ({ onChangePageOne }) => {
   const [curMonth, setcurMonth] = useState();
   const [curYear, setcurYear] = useState();
 
+
   const month_string = ["janvier","février","mars",
     "avril","mai","juin",
     "juillet","août","septembre",
@@ -17,7 +18,6 @@ const Tableau = ({ onChangePageOne }) => {
 
 
   const fetchPaies = async (year,month) =>{
-  
     try {
       let pt = await paiesApi.findAll(year,month);
       console.log("le resultat "+pt);
@@ -108,7 +108,7 @@ const Tableau = ({ onChangePageOne }) => {
                 {
                   paies.map(pt =>{
                     return(
-                      <tr class="row100 body" onClick={() => onChangePageOne()}>
+                      <tr class="row100 body" onClick={() => onChangePageOne(pt.year,pt.month,pt.user)}>
                       <td class="cell100 column1">
                         <img src="img/avatar.png" />
                           {pt.name}

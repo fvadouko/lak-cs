@@ -3,14 +3,79 @@ import Tableau from "../components/paies/tableau";
 import Fiche from "../components/paies/fiche";
 import { Link } from "react-router-dom";
 import Detail from "../components/paies/detail";
+import paiesApi from "../../js/services/paiesApi";
+
 // var table = true;
 // var fiche = false;
 // var detail = false;
+
 const Paiepage = props => {
   const [tables, setTables] = useState(true);
   const [fiches, setFiches] = useState(false);
   const [details, setDetails] = useState(false);
-  //const [paieByUser, setPaieByUser] = useState([]);
+
+  const [wksbyuser, setWksbyuser] = useState([]);
+  const [thoursdone, setThoursdone] = useState([]);
+  const [tplanninghours, setTplanninghours] = useState([]);
+  const [overtimes, setOvertimes] = useState([]);
+
+  const [fyear, setFyear] = useState([]);
+  const [fmonth, setFmonth] = useState([]);
+  const [user, setUser] = useState({});
+
+const WeeksByUser = async (year,month,id) =>{
+
+  try {
+    let pt = await paiesApi.getWeeksByUser(year,month,id);
+    console.log("le resultat "+pt);
+    setWksbyuser(pt);
+  } catch (error) {
+    console.log("error", error)
+  }
+}
+const THoursDone = async (year,month,id) =>{
+
+  try {
+    let pt = await paiesApi.TotalHoursDone(year,month,id);
+    console.log("le resultat "+pt);
+    setThoursdone(pt);
+  } catch (error) {
+    console.log("error", error)
+  }
+}
+const TPlanningHours = async (year,month,id) =>{
+
+  try {
+    let pt = await paiesApi.TotalPlanningHours(year,month,id);
+    console.log("le resultat "+pt);
+    setTplanninghours(pt);
+  } catch (error) {
+    console.log("error", error)
+  }
+}
+
+const Overtimes = async (year,month,id) =>{
+
+  try {
+    let pt = await paiesApi.getOvertimes(year,month,id);
+    console.log("le resultat "+pt);
+    setOvertimes(pt);
+  } catch (error) {
+    console.log("error", error)
+  }
+}
+
+
+const getUser = async (id) =>{
+
+  try {
+    let pt = await paiesApi.getUser(id);
+    console.log("le resultat "+pt);
+    setUser(pt);
+  } catch (error) {
+    console.log("error", error)
+  }
+}
 
   useEffect(() => {
     //setTables(true);
@@ -20,11 +85,19 @@ const Paiepage = props => {
     // }, 6000);
   });
 
-  const handleChangePageOne = (value) => {
+  const handleChangePageOne = (year,month,id) => {
     setTables(false);
     setFiches(true);
     setDetails(false);
 
+    setFyear(year);
+    setFmonth(month);
+  
+    WeeksByUser(year,month,id);
+    THoursDone(year,month,id);
+    TPlanningHours(year,month,id);
+    Overtimes(year,month,id);
+    getUser(id);
   };
 
   const handleChangePageTwo = () => {
@@ -38,7 +111,15 @@ const Paiepage = props => {
       <h3 className="text-center">Paies</h3>
       <br />
       {tables ? <Tableau onChangePageOne={handleChangePageOne} /> : null}
-      {fiches ? <Fiche onChangePageTwo={handleChangePageTwo}  paieByUser = {paieByUser}/> : null}
+
+      {fiches ? <Fiche onChangePageTwo={handleChangePageTwo}  
+      wksbyuser = {wksbyuser}  
+      thoursdone = {thoursdone}
+      overtimes = {overtimes}  
+      user = {user}
+      tplanninghours = {tplanninghours}/> : null
+      }
+
       {details ? <Detail /> : null}
       {/* {fiche ?  : null} */}
       <div className="place-bis">

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 
-const Fiche = ({ onChangePageTwo, paieByUser, paieByWeek }) => {
-  let papa = 0;
+const Fiche = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overtimes, user }) => {
+  console.log('la semaine ici '+wksbyuser)
   return (
     <div>
       <div class="limiter">
@@ -15,61 +15,79 @@ const Fiche = ({ onChangePageTwo, paieByUser, paieByWeek }) => {
                   <img src="img/avatar.png" alt="" />
                   <span className="emp-name">
                     <h6>
-                      Contance <br /> De Ray
+                      {user.lastname} <br /> {user.firstname}
                     </h6>
                   </span>
-                  <p className="text-center month-title">Février 2020</p>
+                  <p className="text-center month-title">
+                      { wksbyuser.month} {wksbyuser.year}
+                  </p>
                 </th>
               </tr>
             </thead>
             <tbody>
+            
               <tr onClick={() => onChangePageTwo()}>
                 <td style={{ width: "58%" }}></td>
-                <td className="text-center">S5</td>
-                <td className="text-center">S5</td>
-                <td className="text-center">S6</td>
-                <td className="text-center">S7</td>
-                <td className="text-center">S8</td>
+                {
+                  wksbyuser.map(wks=>{
+                    return(
+                      <td className="text-center" style={{ fontWeight: "bold" }}>S{wks.week}</td>
+                    )
+                  })
+                }
               </tr>
 
               <tr>
                 <td style={{ fontWeight: "bold" }}>Total heures planning</td>
-                <td className="text-center">
-                  <h3>40</h3>
-                </td>
-                <td className="text-center">
-                  <h3>40</h3>
-                </td>
-                <td className="text-center">
-                  <h3>40</h3>
-                </td>
-                <td className="text-center">
-                  <h3>40</h3>
-                </td>
+                {
+                  tplanninghours.map(tph=>{
+                    return(
+                      <td className="text-center">
+                        <h3>{tph.TotalPlanningHours}</h3>
+                      </td>
+                    )
+                  })
+                }
               </tr>
 
+              {/*
               <tr>
                 <td>Abs à retirer du compteur</td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-              </tr>
+                {
+                  wksbyuser.map(wks=>{
+                    return(
+                      <td className="text-center">S{wks.week}</td>
+                    )
+                  })
+                }
+              </tr>              
+              */}
+              
 
               <tr>
                 <td>Volume horaire(hebdo) .contrat</td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
-                <td className="text-center"></td>
+                {
+                  thoursdone.map(thd=>{
+                    return(
+                      <td className="text-center">
+                        <h3>{thd.TotalHoursDone}</h3>
+                      </td>
+                    )
+                  })
+                }
               </tr>
 
               <tr>
                 <td style={{ fontWeight: "bold" }}>Compteur d'heures</td>
-                <td className="text-center">+2</td>
-                <td className="text-center">+1</td>
-                <td className="text-center">+1</td>
-                <td className="text-center">+2</td>
+                {
+                  overtimes.map(ot=>{
+                    return(
+                      <td className="text-center">
+                        <h3>+{ot.overtimes}</h3>
+                      </td>
+                    )
+                  })
+                }
               </tr>
 
               {/*}
