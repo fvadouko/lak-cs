@@ -117,6 +117,8 @@ const getUser = async (id) =>{
       thoursdone = {thoursdone}
       overtimes = {overtimes}  
       user = {user}
+      year = {fyear}
+      month = {fmonth}
       tplanninghours = {tplanninghours}/> : null
       }
 

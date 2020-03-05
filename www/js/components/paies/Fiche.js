@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 
-const Fiche = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overtimes, user }) => {
+const Fiche = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overtimes, user, year, month }) => {
   console.log('la semaine ici '+wksbyuser)
   return (
     <div>
@@ -19,7 +19,7 @@ const Fiche = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overtim
                     </h6>
                   </span>
                   <p className="text-center month-title">
-                      { wksbyuser.month} {wksbyuser.year}
+                      { month} {year}
                   </p>
                 </th>
               </tr>
