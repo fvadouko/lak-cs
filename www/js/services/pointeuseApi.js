@@ -41,7 +41,7 @@ function update(password, departures) {
     "septembre",
     "octobre",
     "novembre",
-    "decembre"
+    "décembre"
   ];
 
   var raw = JSON.stringify({

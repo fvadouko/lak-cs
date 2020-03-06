@@ -47,7 +47,7 @@ function create(
     "septembre",
     "octobre",
     "novembre",
-    "decembre"
+    "décembre"
   ];
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
