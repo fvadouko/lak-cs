@@ -29,12 +29,14 @@ import * as localeTexts from "./locale.json";
 import { SampleBase } from "./sample-base";
 
 import moment from "moment";
+import $ from "jquery";
 
 loadCldr(numberingSystems, gregorian, numbers, timeZoneNames);
 
 //L10n.load(JSON.parse(localeTexts));
 L10n.load(localeTexts);
-var newDataEmployeeArray;
+var newDataEmployeeArray = [];
+var count = 0;
 
 // TODO : faire afficher les employés après mises à jour du composant
 
@@ -241,6 +243,21 @@ export default class BlockEvents extends SampleBase {
     }
   }
 
+  onEventRendered(args) {
+    console.log(args);
+    count++;
+    console.log(count);
+    let td = (
+      <div class="row" style={{ height: "60px" }}>
+        <div class="col">
+          <br /> 1
+        </div>
+      </div>
+    );
+    $(".e-schedule-table.e-outer-table > tbody > tr:last").append(td);
+    console.log(count);
+  }
+
   onExportClick() {
     let exportValues = {
       fields: ["Id", "Subject", "StartTime", "EndTime", "Location", "Text"]
@@ -278,109 +295,132 @@ export default class BlockEvents extends SampleBase {
   }
   render() {
     this.employeeData = newDataEmployeeArray;
+    console.log(newDataEmployeeArray);
     return (
-      <div className="col-lg-10 schedule-control-section">
-        <div className=" control-section">
-          <div className="control-wrapper drag-sample-wrapper">
-            <div className="schedule-container">
-              {this.state.loading ? (
-                <ScheduleComponent
-                  locale="fr"
-                  dateFormat="dd/MM/yyyy"
-                  firstDayOfWeek={1}
-                  ref={schedule => (this.scheduleObj = schedule)}
-                  cssClass="block-events"
-                  width="100%"
-                  height="650px"
-                  selectedDate={new Date()}
-                  currentView="TimelineWeek"
-                  resourceHeaderTemplate={this.resourceHeaderTemplate.bind(
-                    this
-                  )}
-                  eventSettings={{
-                    dataSource: this.data
-                  }}
-                  group={{
-                    enableCompactView: false,
-                    resources: ["Employee"]
-                  }}
-                  timeScale={{ enable: false, interval: 60, slotCount: 6 }}
-                  actionBegin={this.onActionBegin.bind(this)}
-                  popupOpen={this.onPopupOpen.bind(this)}
-                >
-                  <ResourcesDirective>
-                    <ResourceDirective
-                      field="EmployeeId"
-                      title="Employees"
-                      name="Employee"
-                      allowMultiple={true}
-                      dataSource={this.employeeData}
-                      textField="Text"
-                      idField="Id"
-                      colorField="Color"
-                    ></ResourceDirective>
-                  </ResourcesDirective>
-                  <ViewsDirective>
-                    {/* <ViewDirective displayName="Aujourd'hui" option="Day" /> */}
-                    <ViewDirective displayName="Jour" option="TimelineDay" />
-                    <ViewDirective
-                      displayName="Semaine"
-                      option="TimelineWeek"
+      <div class="container">
+        {this.state.loading ? (
+          <div className="d-flex schedule-control-section">
+            <div className="p-2 w-100 control-section">
+              <div className="control-wrapper drag-sample-wrapper">
+                <div className="schedule-container">
+                  <ScheduleComponent
+                    locale="fr"
+                    dateFormat="dd/MM/yyyy"
+                    firstDayOfWeek={1}
+                    ref={schedule => (this.scheduleObj = schedule)}
+                    cssClass="block-events"
+                    width="100%"
+                    height="650px"
+                    selectedDate={new Date()}
+                    currentView="TimelineWeek"
+                    resourceHeaderTemplate={this.resourceHeaderTemplate.bind(
+                      this
+                    )}
+                    eventSettings={{
+                      dataSource: this.data
+                    }}
+                    group={{
+                      enableCompactView: false,
+                      resources: ["Employee"]
+                    }}
+                    timeScale={{ enable: false, interval: 60, slotCount: 6 }}
+                    actionBegin={this.onActionBegin.bind(this)}
+                    popupOpen={this.onPopupOpen.bind(this)}
+                    eventRendered={this.onEventRendered.bind(this)}
+                  >
+                    <ResourcesDirective>
+                      <ResourceDirective
+                        field="EmployeeId"
+                        title="Employees"
+                        name="Employee"
+                        allowMultiple={true}
+                        dataSource={this.employeeData}
+                        textField="Text"
+                        idField="Id"
+                        colorField="Color"
+                      ></ResourceDirective>
+                    </ResourcesDirective>
+                    <ViewsDirective>
+                      {/* <ViewDirective displayName="Aujourd'hui" option="Day" /> */}
+                      <ViewDirective displayName="Jour" option="TimelineDay" />
+                      <ViewDirective
+                        displayName="Semaine"
+                        option="TimelineWeek"
+                      />
+                      <ViewDirective
+                        displayName="Mois"
+                        option="TimelineMonth"
+                      />
+                    </ViewsDirective>
+                    <Inject
+                      services={[
+                        TimelineViews,
+                        TimelineMonth,
+                        Resize,
+                        DragAndDrop,
+                        ExcelExport
+                      ]}
                     />
-                    <ViewDirective displayName="Mois" option="TimelineMonth" />
-                  </ViewsDirective>
-                  <Inject
-                    services={[
-                      TimelineViews,
-                      TimelineMonth,
-                      Resize,
-                      DragAndDrop,
-                      ExcelExport
-                    ]}
-                  />
-                </ScheduleComponent>
-              ) : (
-                <div>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <p className="text-center" style={{ marginLeft: "35px" }}>
-                    Chargement du planning, veuillez patienter un instant...
-                  </p>{" "}
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
+                  </ScheduleComponent>
                 </div>
-              )}
+              </div>
+              {/* </div> */}
             </div>
+            {/*   <div className="p-2 w-20 control-section "> 
+              <br />
+              <br />
+              <br />
+              <div className="text-center">
+                <strong>Total</strong>
+                {console.log(this.employeeData)}
+                <br />
+                {newDataEmployeeArray.length > 0 &&
+                  this.employeeData.map(d => {
+                    // return (
+                      
+                    // );
+                  })}
+              </div>
+            </div>
+           */}
           </div>
-        </div>
-        {/*<div className="col-lg-2 control-section">Total</div>
-        </div> */}
+        ) : (
+          <div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p className="text-center" style={{ marginLeft: "35px" }}>
+              Chargement du planning, veuillez patienter un instant...
+            </p>{" "}
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
+        )}
       </div>
     );
   }

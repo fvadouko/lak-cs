@@ -1,15 +1,23 @@
 import axios from "axios";
+import config from "../config";
+import moment from "moment";
 
 async function findEvents() {
-  return axios.get("http://localhost:5000/apip/events").then(response => {
-    const users = response.data["hydra:member"];
+  return axios
+    .get(config + "apip/events")
+    .then(response => {
+      const events = response.data["hydra:member"];
 
-    return users;
-  });
+      console.log("[eventApi] users", events);
+      return events;
+    })
+    .catch(error => {
+      console.log("[eventApi] Error", error);
+    });
 }
 
 async function findUsers() {
-  return axios.get("http://localhost:5000/apip/users").then(response => {
+  return axios.get(config + "apip/users").then(response => {
     const users = response.data["hydra:member"];
 
     return users;
@@ -27,6 +35,20 @@ function create(
   repeat,
   timezone
 ) {
+  let monthsArray = [
+    "janvier",
+    "févier",
+    "mars",
+    "avril",
+    "mai",
+    "juin",
+    "juillet",
+    "août",
+    "septembre",
+    "octobre",
+    "novembre",
+    "decembre"
+  ];
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
@@ -39,7 +61,10 @@ function create(
     user: "/apip/users/" + employeeId.toString(),
     description: description,
     repeat: repeat,
-    timezone: timezone
+    timezone: timezone,
+    week: parseInt(moment().weeks()),
+    month: monthsArray[parseInt(new Date().getMonth())],
+    year: parseInt(moment().year())
   });
 
   console.log(raw);
@@ -50,7 +75,7 @@ function create(
     redirect: "follow"
   };
 
-  fetch("http://localhost:5000/apip/events", requestOptions)
+  fetch(config + "apip/events", requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log("error", error));
