@@ -1,28 +1,77 @@
 import config from "../config";
-
-// async function findAll() {
-//   return axios.get(config+"api/paie/findAll").then(response => {
-
-//     //const paies = response.data["hydra:member"];
-//     return paies;
-//   });
-// }
-
-async function findAll() {
+async function findAll(year, month) {
+  console.log(`year: ${year} - month ${month}`);
   try {
-    console.log(config + "api/paie/findAll");
-    const response = await fetch(config + "api/paie/findAll");
+    const response = await fetch(`${config}api/paie/findAll/${year}/${month}`);
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.log(`Error: ${error}`);
   }
 }
 
-async function findAll() {
+async function getWeeksByUser(year, month, id) {
+  console.log(`year: ${year} - month ${month} - id ${id}`);
   try {
-    const response = await fetch(config + "api/paie/findAll");
+    const response = await fetch(
+      `${config}api/paie/getWeeksByUser/${year}/${month}/${id}`
+    );
     const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
+}
+
+async function TotalHoursDone(year, month, id) {
+  console.log(`year: ${year} - month ${month} - id ${id}`);
+  try {
+    const response = await fetch(
+      `${config}api/paie/TotalHoursDone/${year}/${month}/${id}`
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
+}
+
+async function TotalPlanningHours(year, month, id) {
+  console.log(`year: ${year} - month ${month} - id ${id}`);
+  try {
+    const response = await fetch(
+      `${config}api/paie/TotalPlanningHours/${year}/${month}/${id}`
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
+}
+
+async function getOvertimes(year, month, id) {
+  console.log(`year: ${year} - month ${month} - id ${id}`);
+  try {
+    const response = await fetch(
+      `${config}api/paie/getOvertimes/${year}/${month}/${id}`
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
+}
+
+async function getUser(id) {
+  try {
+    const response = await fetch(`${config}apip/users/${id}`);
+    const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.log(`Error: ${error}`);
@@ -30,5 +79,10 @@ async function findAll() {
 }
 
 export default {
-  findAll
+  findAll,
+  getWeeksByUser,
+  TotalHoursDone,
+  TotalPlanningHours,
+  getOvertimes,
+  getUser
 };

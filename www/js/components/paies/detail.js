@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Detail = props => {
+const Detail = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overtimes, user, year, month } )=> {
+
+
+
   return (
     <div>
       <table class="table">
@@ -12,7 +15,7 @@ const Detail = props => {
                 style={{ backgroundColor: "#0f056b", padding: "20px" }}
                 className="text-light text-center"
               >
-                FEVRIER 2020
+                {month} {year}
               </h5>
             </th>
           </tr>
@@ -36,6 +39,10 @@ const Detail = props => {
             <td>1</td>
             <td>04:00</td>
           </tr>
+
+          {/*
+            
+          */}
           <tr>
             <td>Sam 2</td>
             <td>08:00-12:00</td>

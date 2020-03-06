@@ -4,19 +4,58 @@ function create(password, arrivals, departures) {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  var raw = JSON.stringify({
-    passwords: password,
-    arrivals: arrivals,
-    departures: null
-  });
+  function create(password, arrivals, departures) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-  console.log(raw);
+    var raw = JSON.stringify({
+      passwords: password,
+      arrivals: arrivals,
+      departures: null
+    });
 
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow"
+    console.log(raw);
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    fetch(config + "api/create/pointeuses", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log("error", error));
+  }
+
+  function update(password, departures) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      passwords: password,
+      departures: departures
+    });
+
+    console.log(raw);
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    fetch(config + "api/edit/pointeuses", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log("error", error));
+  }
+
+  export default {
+    create,
+    update
   };
 
   fetch(config + "api/create/pointeuses", requestOptions)

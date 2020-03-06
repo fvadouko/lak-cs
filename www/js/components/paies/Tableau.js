@@ -4,49 +4,52 @@ import paiesApi from "../../services/paiesApi";
 
 const Tableau = ({ onChangePageOne }) => {
   const [paies, setPaies] = useState([]);
-  const [periode, setPeriode] = useState("Fevrier 2020");
   const [months, setMonths] = useState([]);
-  const [curMonth, setcurMonth] = useState(0);
+  const [curMonth, setcurMonth] = useState();
+  const [curYear, setcurYear] = useState();
 
 
-  const fetchPaies = async () =>{
+  const month_string = ["janvier","février","mars",
+    "avril","mai","juin",
+    "juillet","août","septembre",
+    "octobre","novembre","décembre"];
+  
+  var list = [];
+
+
+  const fetchPaies = async (year,month) =>{
     try {
-      let pt = await paiesApi.findAll();
-      console.log(pt)
-      setPaies(pt)
+      let pt = await paiesApi.findAll(year,month);
+      console.log("le resultat "+pt);
+      setPaies(pt);
     } catch (error) {
       console.log("error", error)
     }
   }
 
-  const getPeriode = ()=>{
-    const currentDate = new Date();
-    const year = current_date.getYear();
-    
+  const handlePeriodePaie = (e)=>{
+    let cYear = new Date().getFullYear();
+    let cMonth = e.target.value;
+
+    setcurMonth(cMonth);
+    fetchPaies(cYear,cMonth);
 
   }
-
-  const monthListe = ()=>{
-    let list=[];
-    const cm = new Date().getMonth();
-    const month = ["Janvier","Février","Mars",
-    "Avril","Mai","Juin",
-    "Juillet","Août","Septembre",
-    "Octobre","Novembre","Décembre"];
-
-    for(let i=0;i<=cm;i++){
-        list.push(month[i])
-    }
-    setMonths(list);
-  }
-
-    const handlePeriode = ()=>{
-
-    }
 
   useEffect(() =>{
-    monthListe();
-    fetchPaies();
+    let cYear = new Date().getFullYear();
+    const cm = new Date().getMonth();
+    let cMonth = month_string[cm];
+    let list = [];
+
+    for(let i=0;i<=cm;i++){
+      list.push(month_string[i])
+    }
+    console.log("La liste de mois: "+list);
+    setMonths(list);
+    setcurMonth(cMonth);
+    setcurYear(cYear);
+    fetchPaies(cYear,cMonth);
   },[])
   
   return (
@@ -61,18 +64,20 @@ const Tableau = ({ onChangePageOne }) => {
                   <tr class="row100 head">
                     <th class="cell100 column1" colSpan="4" style={{paddingLeft:"100px"}}>
 
-                      <div>
+                      <div >
                           <select
                             class="form-control"
                             id="exampleFormControlSelect1"
                             name="periode"
-                            onChange={handlePeriode}
+                            value={curMonth}
+                            onChange={handlePeriodePaie}
+                            style={{marginTop:"-10px"}}
                           >
                             {
                               months.map(month=>{
                                 return(
-                                  <option value={month}>{month}</option>
-                                )
+                                  <option value={month}>{month} {curYear}</option>
+                                  )
                               })
                             }
 
@@ -82,7 +87,7 @@ const Tableau = ({ onChangePageOne }) => {
                     </th>
                   </tr>
 
-                  <tr class="row100 head">
+                  <tr class="row100">
                     <th class="cell100 column1">Employes</th>
                     <th class="cell100 column2 text-center">
                       Vol Horaire mensuel
@@ -101,10 +106,13 @@ const Tableau = ({ onChangePageOne }) => {
             <div class="table100-body js-pscroll">
               <table>
                 <tbody>
+                <tr style={{marginTop:"70px"}}><td></td></tr>
                 {
                   paies.map(pt =>{
                     return(
-                      <tr class="row100 body" onClick={() => onChangePageOne()}>
+                      <tr class="row100 body" 
+                          onClick={() => onChangePageOne(pt.year,pt.month,pt.user)} 
+                      >
                       <td class="cell100 column1">
                         <img src="img/avatar.png" />
                           {pt.name}
