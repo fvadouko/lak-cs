@@ -73,5 +73,10 @@ async function findAll(year,month){
 
 
   export default {
-    findAll,getWeeksByUser,TotalHoursDone,TotalPlanningHours,getOvertimes,getUser
+    findAll,
+    getWeeksByUser,
+    TotalHoursDone,
+    TotalPlanningHours,
+    getOvertimes,
+    getUser
   };

@@ -51,16 +51,16 @@ const Fiche = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overtim
               </tr>
 
               {/*
-              <tr>
-                <td>Abs à retirer du compteur</td>
-                {
-                  wksbyuser.map(wks=>{
-                    return(
-                      <td className="text-center">S{wks.week}</td>
-                    )
-                  })
-                }
-              </tr>              
+                <tr>
+                  <td>Abs à retirer du compteur</td>
+                  {
+                    wksbyuser.map(wks=>{
+                      return(
+                        <td className="text-center">S{wks.week}</td>
+                      )
+                    })
+                  }
+                </tr>              
               */}
               
 
