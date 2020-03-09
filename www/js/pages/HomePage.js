@@ -35,17 +35,32 @@ const Homepage = props => {
       <br />
       <div className="btn-c">
         <Link to="/planning">
-          <button className="btn btn-light btn-lg" href="#" role="button">
+          <button
+            className="btn btn-light btn-lg"
+            href="#"
+            role="button"
+            style={{ backgroundColor: "#19cab0", color: "#fff" }}
+          >
             Planning
           </button>
         </Link>
         <Link to="/pointeuse">
-          <button className="btn btn-light btn-lg" href="#" role="button">
+          <button
+            className="btn btn-light btn-lg"
+            href="#"
+            role="button"
+            style={{ backgroundColor: "#e8a334", color: "#fff" }}
+          >
             Pointeuse
           </button>
         </Link>
         <Link to="/paies">
-          <button className="btn btn-light btn-lg" href="#" role="button">
+          <button
+            className="btn btn-light btn-lg"
+            href="#"
+            role="button"
+            style={{ backgroundColor: "#ee2a32", color: "#fff" }}
+          >
             Paies
           </button>
         </Link>
