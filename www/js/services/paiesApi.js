@@ -38,6 +38,19 @@ async function TotalHoursDone(year, month, id) {
     console.log(`Error: ${error}`);
   }
 }
+async function TotalHoursDones(year, month, id) {
+  console.log(`year: ${year} - month ${month} - id ${id}`);
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/paie/TotalHoursDones/${year}/${month}/${id}`
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
+}
 
 async function TotalPlanningHours(year, month, id) {
   console.log(`year: ${year} - month ${month} - id ${id}`);
@@ -131,6 +144,7 @@ export default {
   findAll,
   getWeeksByUser,
   TotalHoursDone,
+  TotalHoursDones,
   TotalPlanningHours,
   getOvertimes,
   getUser,
