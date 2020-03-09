@@ -66,7 +66,8 @@ export default class BlockEvents extends SampleBase {
       const data = await eventApi.findEvents();
 
       data.forEach(dt => {
-        dt.user = parseInt(dt.user.substr(12));
+        let last = dt.user.lastIndexOf("/") + 1;
+        dt.user = parseInt(dt.user.substr(last));
       });
 
       let map = {
