@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import userApi from "../../services/userApi";
+import config from "../../config";
 
 const Enrgistrement = props => {
   const [lastname, setLastname] = useState("");
@@ -66,12 +67,19 @@ const Enrgistrement = props => {
           password,
           hourlyrate
         );
+       
         if (success) {
           setLoading(2);
           let data = JSON.parse(success);
           console.log(data);
           console.log(data.picture);
-          setPicture("http://localhost:5000/media/" + data.picture);
+          if(data['@id']!== undefined && data['@id']!==null){
+            if(input.files[0]!== undefined && input.files[0]!==null){
+              setPicture(`${config}media/` + data.picture);
+            }
+            
+          }
+         
         }
       } else {
         alert("Erreur de confirmation du password !");

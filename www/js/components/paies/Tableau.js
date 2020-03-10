@@ -62,6 +62,7 @@ const Tableau = ({ onChangePageOne }) => {
                 name="periode"
                 value={curMonth}
                 onChange={handlePeriodePaie}
+                style={{marginBottom:"15px"}}
             >
                 {
                   months.map(month=>{
@@ -76,7 +77,7 @@ const Tableau = ({ onChangePageOne }) => {
               <div class="table100 ver5 m-b-110">
                 <div class="table100-head">
 
-                  <table>
+                  {paies.length>0 && (<table>
                     <thead>
                       <tr class="row100 head">
 
@@ -95,7 +96,7 @@ const Tableau = ({ onChangePageOne }) => {
                         </th>
                       </tr>
                     </thead>
-                  </table>              
+                  </table>)  }            
                 </div>
 
                 <div class="table100-body js-pscroll">

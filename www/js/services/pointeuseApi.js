@@ -6,10 +6,28 @@ function create(password,arrivals) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
   
+    let monthsArray = [
+      "janvier",
+      "févier",
+      "mars",
+      "avril",
+      "mai",
+      "juin",
+      "juillet",
+      "août",
+      "septembre",
+      "octobre",
+      "novembre",
+      "décembre"
+    ];
+    
     var raw = JSON.stringify({
       passwords: password,
       arrivals: arrivals,
-      departures: null
+      departures: null,
+      week: parseInt(moment().weeks()),
+      month: monthsArray[parseInt(new Date().getMonth())],
+      year: parseInt(moment().year())
     });
   
     console.log(raw);

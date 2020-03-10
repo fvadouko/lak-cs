@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import pointeuseApi from "../../services/pointeuseApi";
 import Clock from "./clock";
 
-var concatValue;
+var concatValue="";
 const PointeuseComponent = props => {
   //const [arrival, setArrival] = useState(0);
   const [departures, setDepartures] = useState(null);
@@ -12,65 +12,29 @@ const PointeuseComponent = props => {
   const [arrival, setArrival] = useState(false);
   const [departure, setDeparture] = useState(false);
 
-  useEffect(() => {
-    showDate();
-
-    const initialDate = new Date();
-
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    };
-
-    let dateLocale = String(initialDate.toLocaleDateString(undefined, options));
-    //document.getElementById("p1").innerHTML = dateLocale;
-  }, []);
-
-  const refresh = () => {
-    var t = 1000; // rafraîchissement en millisecondes
-    setTimeout(showDate(), t);
-  };
-
-  const showDate = () => {
-    var date = new Date();
-    var h = date.getHours();
-    var m = date.getMinutes();
-    var s = date.getSeconds();
-    if (h < 10) {
-      h = "0" + h;
-    }
-    if (m < 10) {
-      m = "0" + m;
-    }
-    if (s < 10) {
-      s = "0" + s;
-    }
-    var time = h + ":" + m + ":" + s;
-    //document.getElementById("horloge").innerHTML = time;
-    //refresh();
-  };
-
   const fillInputPassword = value => {
-    if (password.length < 5) {
-      if (concatValue == null) {
-        concatValue = value.toString().trim();
-      } else {
-        concatValue = concatValue.toString().trim() + value.toString().trim();
-      }
+    if (concatValue.length <= 6) {
+      concatValue = concatValue.toString().trim() + value.toString().trim();
+      concatValue = concatValue.trim();
 
+      
       setPassword(concatValue);
+      console.log("line 25", concatValue);
     }
 
-    if (password.length == 5) {
+    if (concatValue.length == 6) {
+      //setPassword(concatValue);
+    
+      console.log("line 31", concatValue);
       if (arrival) {
-        $("#arrivalsModal").modal("hide");
         handleArrival();
+        $("#arrivalsModal").modal("hide");
+       
       }
       if (departure) {
-        $("#departuresModal").modal("hide");
         handleDepartures();
+        $("#departuresModal").modal("hide");
+        
       }
     }
   };
@@ -98,8 +62,9 @@ const PointeuseComponent = props => {
     if (password !== "") {
       let arrivals = new Date();
       try {
+        console.log("line 63", concatValue);
         const arrival = await pointeuseApi.create(
-          password,
+          concatValue, // remember this is password
           arrivals,
           departures
         );
@@ -117,7 +82,7 @@ const PointeuseComponent = props => {
     if (password !== "") {
       let departures = new Date();
       try {
-        const departure = await pointeuseApi.update(password, departures);
+        const departure = await pointeuseApi.update(concatValue, departures);
         $("#departuresModal").modal("toggle");
       } catch (error) {
         //
@@ -209,8 +174,9 @@ const PointeuseComponent = props => {
                   <div class="btn-group ">
                     <input
                       class="text-center form-control-lg mb-2"
-                      value={password}
+                     
                       type="password"
+                    defaultValue={password}
                     />
                   </div>
                   <div class="btn-group pl-4 pr-4">
@@ -344,7 +310,7 @@ const PointeuseComponent = props => {
                   <div class="btn-group ">
                     <input
                       class="text-center form-control-lg mb-2"
-                      value={password}
+                      defaultValue={password}
                       type="password"
                       style={{ border: "1px solid #ccc !important" }}
                     />

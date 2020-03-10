@@ -1,3 +1,5 @@
+import config from "../config";
+
 
 async function findAll(year,month){
   try {

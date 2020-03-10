@@ -99,7 +99,18 @@ const getUser = async (id) =>{
   };
 
   return (
-    <div>
+    <div  className="container">
+      <Link to="/">
+          <button
+            className="btn btn-light btn-lg"
+            href="#"
+            role="button"
+            style={{position: "relative",top: "37px",left: "45px"}}
+          >
+            Retour
+          </button>
+      </Link>
+
       <h3 className="text-center">Paies</h3>
       <br />
       {tables ? <Tableau onChangePageOne={handleChangePageOne} /> : null}
@@ -119,18 +130,7 @@ const getUser = async (id) =>{
       year = {fyear}
       month = {fmonth}/> : null}
       {/* {fiche ?  : null} */}
-      <div className="place-bis">
-        <Link to="/">
-          <button
-            className="btn btn-light btn-lg"
-            href="#"
-            role="button"
-            style={{ marginTop: "10%" }}
-          >
-            Retour
-          </button>
-        </Link>
-      </div>
+
     </div>
   );
 };
