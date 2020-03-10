@@ -1,10 +1,19 @@
-function create(firstname, lastname, designation, picture,password,hourlyrate) {
+import config from "../config";
+
+function create(
+  firstname,
+  lastname,
+  designation,
+  picture,
+  password,
+  hourlyrate
+) {
   var formdata = new FormData();
 
   const input = document.querySelector('input[type="file"]');
   formdata.append("file", input.files[0]);
 
-  return fetch("http://localhost:5000/apip/media_objects", {
+  return fetch(config + "apip/media_objects", {
     method: "POST",
     body: formdata
   })
@@ -29,8 +38,8 @@ function create(firstname, lastname, designation, picture,password,hourlyrate) {
         picture: url.contentUrl.toString().substr(7),
         image: "/apip/media_objects/" + url["@id"].toString().substr(20),
         passwords: password,
-    hourlyrate: parseInt(hourlyrate),
-    createdAt:new Date()
+        hourlyrate: parseInt(hourlyrate),
+        createdAt: new Date()
       });
 
       var requestOptions = {
@@ -40,7 +49,7 @@ function create(firstname, lastname, designation, picture,password,hourlyrate) {
         redirect: "follow"
       };
 
-      return fetch("http://localhost:5000/apip/users", requestOptions)
+      return fetch(config + "apip/users", requestOptions)
         .then(response => response.text())
         .then(result => {
           console.log(result);

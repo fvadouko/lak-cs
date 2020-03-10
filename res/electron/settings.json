@@ -5,7 +5,8 @@
     "resizable": false,
     "autoHideMenuBar": true,
     "webPreferences": {
-      "nodeIntegration": false
+      "nodeIntegration": false,
+      "devTools": false
     }
   }
 }

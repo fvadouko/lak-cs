@@ -1,10 +1,10 @@
 
 async function findAll(year,month){
   try {
-      const response = await fetch(`http://localhost:5000/api/paie/findAll/${year}/${month}`);
-      const data = await response.json();
-      console.log(data);
-      return data;   
+    const response = await fetch(`${config}api/paie/findAll/${year}/${month}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
   } catch (error) {
     console.log(`Error: ${error}`);
   }
@@ -20,6 +20,7 @@ async function findAll(year,month){
       console.log(`Error: ${error}`);
     }
   }
+
 
   async function TotalHoursDone(year,month,id){
     try {
@@ -43,6 +44,7 @@ async function findAll(year,month){
     }
   }
 
+
   async function TotalPlanningHours(year,month,id){
     try {
         const response = await fetch(`http://localhost:5000/api/paie/TotalPlanningHours/${year}/${month}/${id}`);
@@ -53,6 +55,7 @@ async function findAll(year,month){
       console.log(`Error: ${error}`);
     }
   }
+
 
   async function getOvertimes(year,month,id){
     try {
@@ -111,6 +114,7 @@ async function findAll(year,month){
       console.log(`Error from weeksPlanned : ${error}`);
     }
   }
+
 
 
   export default {
