@@ -5,10 +5,6 @@ import { Link } from "react-router-dom";
 import Detail from "../components/paies/detail";
 import paiesApi from "../../js/services/paiesApi";
 
-// var table = true;
-// var fiche = false;
-// var detail = false;
-
 const Paiepage = props => {
   const [tables, setTables] = useState(true);
   const [fiches, setFiches] = useState(false);
@@ -27,7 +23,6 @@ const WeeksByUser = async (year,month,id) =>{
 
   try {
     let pt = await paiesApi.getWeeksByUser(year,month,id);
-    console.log("le resultat "+pt);
     setWksbyuser(pt);
   } catch (error) {
     console.log("error", error)
@@ -37,7 +32,6 @@ const THoursDone = async (year,month,id) =>{
 
   try {
     let pt = await paiesApi.TotalHoursDone(year,month,id);
-    console.log("le resultat "+pt);
     setThoursdone(pt);
   } catch (error) {
     console.log("error", error)
@@ -47,7 +41,6 @@ const TPlanningHours = async (year,month,id) =>{
 
   try {
     let pt = await paiesApi.TotalPlanningHours(year,month,id);
-    console.log("le resultat "+pt);
     setTplanninghours(pt);
   } catch (error) {
     console.log("error", error)
@@ -58,7 +51,6 @@ const Overtimes = async (year,month,id) =>{
 
   try {
     let pt = await paiesApi.getOvertimes(year,month,id);
-    console.log("le resultat "+pt);
     setOvertimes(pt);
   } catch (error) {
     console.log("error", error)

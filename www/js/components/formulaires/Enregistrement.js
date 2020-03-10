@@ -8,7 +8,7 @@ const Enrgistrement = props => {
   const [designation, setDesignation] = useState("");
   const [picture, setPicture] = useState("https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg");
 
-  //  AJOUT PASSWORD & TAUX HORAIRE  /////////////////////////
+  //  AJOUT PASSWORD & TAUX HORAIRE  //
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [hourlyrate, setHourlyrate] = useState(0);
@@ -50,9 +50,11 @@ const Enrgistrement = props => {
    * @param {*} event
    */
   const handleSubmit = async event => {
+    
     event.preventDefault();
     setLoading(1);
     const input = document.querySelector('input[type="file"]');
+
     try {
       if(password===confirmPassword){
       let success = await userApi.create(

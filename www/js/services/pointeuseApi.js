@@ -1,6 +1,6 @@
 
 
-function create(password,arrivals,departures) {
+function create(password,arrivals) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
   

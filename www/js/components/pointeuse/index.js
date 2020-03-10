@@ -153,7 +153,6 @@ const PointeuseComponent = props => {
                                 class="form-control"
                                 placeholder="Votre mot de passe"
                                 name="password"
-                                //value={lastname}
                                 onChange={e=>setPassword(e.target.value)}
                                 required
                               />
@@ -204,7 +203,6 @@ const PointeuseComponent = props => {
                                   class="form-control"
                                   placeholder="Votre mot de passe"
                                   name="password"
-                                  //value={lastname}
                                   onChange={e=>setPassword(e.target.value)}
                                   required
                                 />
