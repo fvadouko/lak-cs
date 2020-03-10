@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import pointeuseApi from "../../services/pointeuseApi";
 import Clock from "./clock";
 
-var concatValue="";
+var concatValue = "";
 const PointeuseComponent = props => {
   //const [arrival, setArrival] = useState(0);
   const [departures, setDepartures] = useState(null);
@@ -12,29 +12,76 @@ const PointeuseComponent = props => {
   const [arrival, setArrival] = useState(false);
   const [departure, setDeparture] = useState(false);
 
+  useEffect(() => {
+    showDate();
+
+    const initialDate = new Date();
+
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    };
+
+    let dateLocale = String(initialDate.toLocaleDateString(undefined, options));
+    //document.getElementById("p1").innerHTML = dateLocale;
+  }, []);
+
+  const refresh = () => {
+    var t = 1000; // rafraîchissement en millisecondes
+    setTimeout(showDate(), t);
+  };
+
+  const showDate = () => {
+    var date = new Date();
+    var h = date.getHours();
+    var m = date.getMinutes();
+    var s = date.getSeconds();
+    if (h < 10) {
+      h = "0" + h;
+    }
+    if (m < 10) {
+      m = "0" + m;
+    }
+    if (s < 10) {
+      s = "0" + s;
+    }
+    var time = h + ":" + m + ":" + s;
+    //document.getElementById("horloge").innerHTML = time;
+    //refresh();
+  };
+
   const fillInputPassword = value => {
     if (concatValue.length <= 6) {
       concatValue = concatValue.toString().trim() + value.toString().trim();
       concatValue = concatValue.trim();
-
-      
+      console.log("[pointeuse] line 62", concatValue);
       setPassword(concatValue);
-      console.log("line 25", concatValue);
+      console.log("[pointeuse] line 64", password);
     }
 
     if (concatValue.length == 6) {
-      //setPassword(concatValue);
-    
-      console.log("line 31", concatValue);
+      console.log("[pointeuse] line 68", concatValue);
       if (arrival) {
-        handleArrival();
         $("#arrivalsModal").modal("hide");
-       
+        handleArrival();
+
+        // code autorisation pointeuse arrivee ici
+        // try {
+        //     const last = await pointeuseApi.departures(password);
+        //     if(last.departures !== null){
+        //       $("#arrivalsModal").modal("hide");
+        //       handleArrival();
+        //     }
+        // } catch (error) {
+        //     console.log("error: ",error);
+        // }
+
       }
       if (departure) {
-        handleDepartures();
         $("#departuresModal").modal("hide");
-        
+        handleDepartures();
       }
     }
   };
@@ -62,13 +109,16 @@ const PointeuseComponent = props => {
     if (password !== "") {
       let arrivals = new Date();
       try {
-        console.log("line 63", concatValue);
-        const arrival = await pointeuseApi.create(
-          concatValue, // remember this is password
-          arrivals,
-          departures
-        );
-        $("#arrivalsModal").modal("toggle");
+        console.log("[pointeuse] line 68", concatValue);
+
+
+            const arrival = await pointeuseApi.create(
+              concatValue,
+              arrivals,
+              departures
+            );
+            $("#arrivalsModal").modal("toggle");
+
       } catch (error) {
         //
       }
@@ -131,8 +181,6 @@ const PointeuseComponent = props => {
         <button
           type="button"
           className="btn btn-danger"
-          data-toggle="modal"
-          data-target="#departuresModal"
           onClick={() => handleClickDeparture()}
           style={{ width: "165px", height: "65px" }}
         >
@@ -174,9 +222,8 @@ const PointeuseComponent = props => {
                   <div class="btn-group ">
                     <input
                       class="text-center form-control-lg mb-2"
-                     
+                      defaultValue={password}
                       type="password"
-                    defaultValue={password}
                     />
                   </div>
                   <div class="btn-group pl-4 pr-4">

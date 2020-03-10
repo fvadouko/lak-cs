@@ -37,6 +37,7 @@ const App = () => {
         <Route path="/pointeuse" component={Pointeusepage} />
         <Route path="/paies" component={Paiepage} />
         <Route path="/employe" component={EmployePage} />
+        {/*<Route path="/detail" component={EmployePage} />*/}
         <Route path="/" component={Homepage} />
       </Switch>
     </HashRouter>
