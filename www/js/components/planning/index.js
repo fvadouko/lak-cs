@@ -239,7 +239,7 @@ export default class BlockEvents extends SampleBase {
             ? args.data[0].StartTimezone
             : ""
         );
-        window.location.reload(false);
+
         this.setState({ alreadySent: true });
       }
     }
@@ -253,6 +253,14 @@ export default class BlockEvents extends SampleBase {
     //console.log(newDataEmployeeArray);
     //$(".e-schedule-table.e-outer-table > tbody > tr:last").append(td);
     // console.log(count);
+    // $(".e-schedule-table .e-resource-column-table > tbody> tr")
+    //     .find("td")
+    //     .eq(1)
+    //     .html("franck");
+    //   $(".e-schedule-table .e-resource-column-table > tbody > tr")
+    //     .find("td")
+    //     .eq(0)
+    //     .html("venance");
   }
 
   onExportClick() {
@@ -296,6 +304,18 @@ export default class BlockEvents extends SampleBase {
       console.log("Line 294", this.dataSource);
       console.log("Line 294", this.eventSettings);
     }
+
+    for (let index = 0; index < newDataEmployeeArray.length; index++) {
+      $(".e-schedule-table .e-resource-column-table > tbody > tr")
+        .find("td")
+        .eq(index)
+        .html(
+          newDataEmployeeArray[index].Text +
+            "<br />" +
+            newDataEmployeeArray[index].Designation
+        );
+    }
+
     // console.log("Line 294", this.eventSettings);
     // console.log("Line 295", this.eventSettings.dataSource);
   }

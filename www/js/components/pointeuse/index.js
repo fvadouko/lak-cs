@@ -185,22 +185,22 @@ const PointeuseComponent = props => {
       </div>
 
       <div
-        class="modal fade"
+        className="modal fade"
         id="arrivalsModal"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLongTitle">
                 Saisissez votre mot de passe
               </h5>
               <button
                 type="button"
-                class="close"
+                className="close"
                 data-dismiss="modal"
                 aria-label="Close"
               >
@@ -208,105 +208,105 @@ const PointeuseComponent = props => {
               </button>
             </div>
 
-            <div class="modal-body">
-              <div style={{ width: "250px" }} class="mx-auto">
+            <div className="modal-body">
+              <div style={{ width: "250px" }} className="mx-auto">
                 <div
-                  class="btn-group-vertical mt-4"
+                  className="btn-group-vertical mt-4"
                   role="group"
                   aria-label="Basic example"
                 >
-                  <div class="btn-group ">
+                  <div className="btn-group ">
                     <input
-                      class="text-center form-control-lg mb-2"
+                      className="text-center form-control-lg mb-2"
                       defaultValue={password}
                       type="password"
                     />
                   </div>
-                  <div class="btn-group pl-4 pr-4">
+                  <div className="btn-group pl-4 pr-4">
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(1)}
                     >
                       1
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(2)}
                     >
                       2
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary py-3 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary py-3 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(3)}
                     >
                       3
                     </button>
                   </div>
-                  <div class="btn-group pl-4 pr-4">
+                  <div className="btn-group pl-4 pr-4">
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(4)}
                     >
                       4
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(5)}
                     >
                       5
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary py-3 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary py-3 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(6)}
                     >
                       6
                     </button>
                   </div>
-                  <div class="btn-group pl-4 pr-4">
+                  <div className="btn-group pl-4 pr-4">
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(7)}
                     >
                       7
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(8)}
                     >
                       8
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(9)}
                     >
                       9
                     </button>
                   </div>
-                  <div class="btn-group pl-4 pr-4">
+                  <div className="btn-group pl-4 pr-4">
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle invisible"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle invisible"
                       onClick={() => fillInputPassword(7)}
                     ></button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(0)}
                     >
                       0
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => backButton()}
                     >
                       {"<-"}
@@ -320,22 +320,22 @@ const PointeuseComponent = props => {
       </div>
 
       <div
-        class="modal fade"
+        className="modal fade"
         id="departuresModal"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLongTitle">
                 Date de départ
               </h5>
               <button
                 type="button"
-                class="close"
+                className="close"
                 data-dismiss="modal"
                 aria-label="Close"
               >
@@ -343,106 +343,106 @@ const PointeuseComponent = props => {
               </button>
             </div>
 
-            <div class="modal-body">
-              <div style={{ width: "150px" }} class="mx-auto">
+            <div className="modal-body">
+              <div style={{ width: "150px" }} className="mx-auto">
                 <div
-                  class="btn-group-vertical mt-4"
+                  className="btn-group-vertical mt-4"
                   role="group"
                   aria-label="Basic example"
                 >
-                  <div class="btn-group ">
+                  <div className="btn-group ">
                     <input
-                      class="text-center form-control-lg mb-2"
+                      className="text-center form-control-lg mb-2"
                       defaultValue={password}
                       type="password"
                       style={{ border: "1px solid #ccc !important" }}
                     />
                   </div>
-                  <div class="btn-group pl-4 pr-4">
+                  <div className="btn-group pl-4 pr-4">
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(1)}
                     >
                       1
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(2)}
                     >
                       2
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary py-3 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary py-3 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(3)}
                     >
                       3
                     </button>
                   </div>
-                  <div class="btn-group pl-4 pr-4">
+                  <div className="btn-group pl-4 pr-4">
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(4)}
                     >
                       4
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(5)}
                     >
                       5
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary py-3 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary py-3 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(6)}
                     >
                       6
                     </button>
                   </div>
-                  <div class="btn-group pl-4 pr-4">
+                  <div className="btn-group pl-4 pr-4">
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(7)}
                     >
                       7
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(8)}
                     >
                       8
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(9)}
                     >
                       9
                     </button>
                   </div>
-                  <div class="btn-group pl-4 pr-4">
+                  <div className="btn-group pl-4 pr-4">
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle invisible"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle invisible"
                       onClick={() => fillInputPassword(7)}
                     ></button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => fillInputPassword(0)}
                     >
                       0
                     </button>
                     <button
                       type="button"
-                      class="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
+                      className="btn btn-outline-secondary mr-2 mb-2 rounded-circle"
                       onClick={() => backButton()}
                     >
                       {"<-"}
