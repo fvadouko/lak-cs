@@ -22,60 +22,55 @@ const Paiepage = props => {
   const [fyear, setFyear] = useState([]);
   const [fmonth, setFmonth] = useState([]);
   const [user, setUser] = useState({});
+  const [cpnt, setCpnt] = useState("/");
 
-const WeeksByUser = async (year,month,id) =>{
+  const WeeksByUser = async (year, month, id) => {
+    try {
+      let pt = await paiesApi.getWeeksByUser(year, month, id);
+      console.log("le resultat " + pt);
+      setWksbyuser(pt);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const THoursDone = async (year, month, id) => {
+    try {
+      let pt = await paiesApi.TotalHoursDone(year, month, id);
+      console.log("le resultat " + pt);
+      setThoursdone(pt);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const TPlanningHours = async (year, month, id) => {
+    try {
+      let pt = await paiesApi.TotalPlanningHours(year, month, id);
+      console.log("le resultat " + pt);
+      setTplanninghours(pt);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
-  try {
-    let pt = await paiesApi.getWeeksByUser(year,month,id);
-    console.log("le resultat "+pt);
-    setWksbyuser(pt);
-  } catch (error) {
-    console.log("error", error)
-  }
-}
-const THoursDone = async (year,month,id) =>{
+  const Overtimes = async (year, month, id) => {
+    try {
+      let pt = await paiesApi.getOvertimes(year, month, id);
+      console.log("le resultat " + pt);
+      setOvertimes(pt);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
-  try {
-    let pt = await paiesApi.TotalHoursDone(year,month,id);
-    console.log("le resultat "+pt);
-    setThoursdone(pt);
-  } catch (error) {
-    console.log("error", error)
-  }
-}
-const TPlanningHours = async (year,month,id) =>{
-
-  try {
-    let pt = await paiesApi.TotalPlanningHours(year,month,id);
-    console.log("le resultat "+pt);
-    setTplanninghours(pt);
-  } catch (error) {
-    console.log("error", error)
-  }
-}
-
-const Overtimes = async (year,month,id) =>{
-
-  try {
-    let pt = await paiesApi.getOvertimes(year,month,id);
-    console.log("le resultat "+pt);
-    setOvertimes(pt);
-  } catch (error) {
-    console.log("error", error)
-  }
-}
-
-
-const getUser = async (id) =>{
-
-  try {
-    let pt = await paiesApi.getUser(id);
-    console.log("le resultat "+pt);
-    setUser(pt);
-  } catch (error) {
-    console.log("error", error)
-  }
-}
+  const getUser = async id => {
+    try {
+      let pt = await paiesApi.getUser(id);
+      console.log("le resultat " + pt);
+      setUser(pt);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   useEffect(() => {
     //setTables(true);
@@ -85,18 +80,19 @@ const getUser = async (id) =>{
     // }, 6000);
   });
 
-  const handleChangePageOne = (year,month,id) => {
+  const handleChangePageOne = (year, month, id) => {
     setTables(false);
     setFiches(true);
     setDetails(false);
+    setCpnt("/tableau");
 
     setFyear(year);
     setFmonth(month);
-  
-    WeeksByUser(year,month,id);
-    THoursDone(year,month,id);
-    TPlanningHours(year,month,id);
-    Overtimes(year,month,id);
+
+    WeeksByUser(year, month, id);
+    THoursDone(year, month, id);
+    TPlanningHours(year, month, id);
+    Overtimes(year, month, id);
     getUser(id);
   };
 
@@ -104,6 +100,7 @@ const getUser = async (id) =>{
     setTables(false);
     setFiches(false);
     setDetails(true);
+    setCpnt("/fiche");
   };
 
   return (
@@ -112,23 +109,23 @@ const getUser = async (id) =>{
       <br />
       {tables ? <Tableau onChangePageOne={handleChangePageOne} /> : null}
 
-      {fiches ? <Fiche onChangePageTwo={handleChangePageTwo}  
-      wksbyuser = {wksbyuser}  
-      thoursdone = {thoursdone}
-      overtimes = {overtimes}  
-      user = {user}
-      year = {fyear}
-      month = {fmonth}
-      tplanninghours = {tplanninghours}/> : null
-      }
+      {fiches ? (
+        <Fiche
+          onChangePageTwo={handleChangePageTwo}
+          wksbyuser={wksbyuser}
+          thoursdone={thoursdone}
+          overtimes={overtimes}
+          user={user}
+          year={fyear}
+          month={fmonth}
+          tplanninghours={tplanninghours}
+        />
+      ) : null}
 
-      {details ? <Detail  
-      user = {user}
-      year = {fyear}
-      month = {fmonth}/> : null}
+      {details ? <Detail user={user} year={fyear} month={fmonth} /> : null}
       {/* {fiche ?  : null} */}
       <div className="place-bis">
-        <Link to="/">
+        <Link to={cpnt}>
           <button
             className="btn btn-light btn-lg"
             href="#"

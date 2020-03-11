@@ -239,24 +239,20 @@ export default class BlockEvents extends SampleBase {
             ? args.data[0].StartTimezone
             : ""
         );
+        window.location.reload(false);
         this.setState({ alreadySent: true });
       }
     }
   }
 
   onEventRendered(args) {
-    console.log(args);
-    count++;
-    console.log(count);
-    let td = (
-      <div class="row" style={{ height: "60px" }}>
-        <div class="col">
-          <br /> 1
-        </div>
-      </div>
-    );
-    $(".e-schedule-table.e-outer-table > tbody > tr:last").append(td);
-    console.log(count);
+    // console.log(args);
+    // count++;
+    // console.log(count);
+    //this.employeeData = newDataEmployeeArray;
+    //console.log(newDataEmployeeArray);
+    //$(".e-schedule-table.e-outer-table > tbody > tr:last").append(td);
+    // console.log(count);
   }
 
   onExportClick() {
@@ -294,9 +290,17 @@ export default class BlockEvents extends SampleBase {
       </div>
     );
   }
+  onActionComplete(args) {
+    console.log("Line 293", args);
+    if (args.requestType === "eventCreated") {
+      console.log("Line 294", this.dataSource);
+      console.log("Line 294", this.eventSettings);
+    }
+    // console.log("Line 294", this.eventSettings);
+    // console.log("Line 295", this.eventSettings.dataSource);
+  }
   render() {
-    this.employeeData = newDataEmployeeArray;
-    console.log(newDataEmployeeArray);
+    console.log("Line 298", this.employeeData);
     return (
       <div class="container">
         {this.state.loading ? (
@@ -326,6 +330,7 @@ export default class BlockEvents extends SampleBase {
                     }}
                     timeScale={{ enable: false, interval: 60, slotCount: 6 }}
                     actionBegin={this.onActionBegin.bind(this)}
+                    actionComplete={this.onActionComplete.bind(this)}
                     popupOpen={this.onPopupOpen.bind(this)}
                     eventRendered={this.onEventRendered.bind(this)}
                   >
@@ -335,7 +340,7 @@ export default class BlockEvents extends SampleBase {
                         title="Employees"
                         name="Employee"
                         allowMultiple={true}
-                        dataSource={this.employeeData}
+                        dataSource={newDataEmployeeArray}
                         textField="Text"
                         idField="Id"
                         colorField="Color"

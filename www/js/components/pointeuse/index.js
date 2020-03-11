@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import pointeuseApi from "../../services/pointeuseApi";
 import Clock from "./clock";
 
-var concatValue;
+var concatValue = "";
 const PointeuseComponent = props => {
   //const [arrival, setArrival] = useState(0);
   const [departures, setDepartures] = useState(null);
@@ -53,17 +53,16 @@ const PointeuseComponent = props => {
   };
 
   const fillInputPassword = value => {
-    if (password.length < 5) {
-      if (concatValue == null) {
-        concatValue = value.toString().trim();
-      } else {
-        concatValue = concatValue.toString().trim() + value.toString().trim();
-      }
-
+    if (concatValue.length <= 6) {
+      concatValue = concatValue.toString().trim() + value.toString().trim();
+      concatValue = concatValue.trim();
+      console.log("[pointeuse] line 62", concatValue);
       setPassword(concatValue);
+      console.log("[pointeuse] line 64", password);
     }
 
-    if (password.length == 5) {
+    if (concatValue.length == 6) {
+      console.log("[pointeuse] line 68", concatValue);
       if (arrival) {
         $("#arrivalsModal").modal("hide");
         handleArrival();
@@ -98,8 +97,9 @@ const PointeuseComponent = props => {
     if (password !== "") {
       let arrivals = new Date();
       try {
+        console.log("[pointeuse] line 68", concatValue);
         const arrival = await pointeuseApi.create(
-          password,
+          concatValue,
           arrivals,
           departures
         );
@@ -117,7 +117,7 @@ const PointeuseComponent = props => {
     if (password !== "") {
       let departures = new Date();
       try {
-        const departure = await pointeuseApi.update(password, departures);
+        const departure = await pointeuseApi.update(concatValue, departures);
         $("#departuresModal").modal("toggle");
       } catch (error) {
         //
@@ -166,8 +166,6 @@ const PointeuseComponent = props => {
         <button
           type="button"
           className="btn btn-danger"
-          data-toggle="modal"
-          data-target="#departuresModal"
           onClick={() => handleClickDeparture()}
           style={{ width: "165px", height: "65px" }}
         >
@@ -209,7 +207,7 @@ const PointeuseComponent = props => {
                   <div class="btn-group ">
                     <input
                       class="text-center form-control-lg mb-2"
-                      value={password}
+                      defaultValue={password}
                       type="password"
                     />
                   </div>
@@ -344,7 +342,7 @@ const PointeuseComponent = props => {
                   <div class="btn-group ">
                     <input
                       class="text-center form-control-lg mb-2"
-                      value={password}
+                      defaultValue={password}
                       type="password"
                       style={{ border: "1px solid #ccc !important" }}
                     />

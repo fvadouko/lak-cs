@@ -28,6 +28,8 @@ import Planningpage from "./pages/PlanningPage";
 import Pointeusepage from "./pages/PointeusePage";
 import Paiepage from "./pages/PaiePage";
 import EmployePage from "./pages/EmployePage";
+import Tableau from "./components/paies/tableau";
+import Fiche from "./components/paies/fiche";
 
 const App = () => {
   return (
@@ -37,6 +39,8 @@ const App = () => {
         <Route path="/pointeuse" component={Pointeusepage} />
         <Route path="/paies" component={Paiepage} />
         <Route path="/employe" component={EmployePage} />
+        <Route path="/tableau" component={Tableau} />
+        <Route path="/fiche" component={Fiche} />
         <Route path="/" component={Homepage} />
       </Switch>
     </HashRouter>
