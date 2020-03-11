@@ -1,4 +1,5 @@
 import config from "../config";
+import moment from "moment";
 
 function create(password, arrivals, departures) {
   var myHeaders = new Headers();
@@ -25,10 +26,12 @@ function create(password, arrivals, departures) {
     .catch(error => console.log("error", error));
 }
 
+
+
 function update(password, departures) {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-
+console.log("Error from update: ",raw);
   let monthsArray = [
     "janvier",
     "févier",
@@ -52,7 +55,7 @@ function update(password, departures) {
     year: parseInt(moment().year())
   });
 
-  console.log(raw);
+  console.log("Error from update: ",raw);
 
   var requestOptions = {
     method: "POST",
@@ -67,27 +70,21 @@ function update(password, departures) {
     .catch(error => console.log("error", error));
 }
 
-function lastPointeuse(password) {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
 
-  var raw = JSON.stringify({
-    passwords: password
-  });
 
-  console.log(raw);
+async function lastPointeuse(password) {
 
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow"
-  };
+  console.log("le password: ",password);
+  
+  try {
+      const response = await fetch(`${config}api/lastPointeuse/${password}`);
+      const data = await response.json();
+      console.log("The last pointeuse: ",data);
+      return data;    
+  } catch (error) {
+    console.log("Error from lastPointeuse: ",error);
+  }
 
-  fetch(config + "api/lastPointeuse", requestOptions)
-    .then(response => response.json())
-    .then(result => console.log(result))
-    .catch(error => console.log("error", error));
 }
 
 export default {

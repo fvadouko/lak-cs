@@ -1,58 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import pointeuseApi from "../../services/pointeuseApi";
 import Clock from "./clock";
 
 var concatValue = "";
 const PointeuseComponent = props => {
-  //const [arrival, setArrival] = useState(0);
   const [departures, setDepartures] = useState(null);
-  //const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
   const [arrival, setArrival] = useState(false);
   const [departure, setDeparture] = useState(false);
 
-  useEffect(() => {
-    showDate();
-
-    const initialDate = new Date();
-
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    };
-
-    let dateLocale = String(initialDate.toLocaleDateString(undefined, options));
-    //document.getElementById("p1").innerHTML = dateLocale;
-  }, []);
-
-  const refresh = () => {
-    var t = 1000; // rafraîchissement en millisecondes
-    setTimeout(showDate(), t);
-  };
-
-  const showDate = () => {
-    var date = new Date();
-    var h = date.getHours();
-    var m = date.getMinutes();
-    var s = date.getSeconds();
-    if (h < 10) {
-      h = "0" + h;
-    }
-    if (m < 10) {
-      m = "0" + m;
-    }
-    if (s < 10) {
-      s = "0" + s;
-    }
-    var time = h + ":" + m + ":" + s;
-    //document.getElementById("horloge").innerHTML = time;
-    //refresh();
-  };
-
-  const fillInputPassword = value => {
+  const fillInputPassword = async value => {
     if (concatValue.length <= 6) {
       concatValue = concatValue.toString().trim() + value.toString().trim();
       concatValue = concatValue.trim();
@@ -64,21 +22,26 @@ const PointeuseComponent = props => {
     if (concatValue.length == 6) {
       console.log("[pointeuse] line 68", concatValue);
       if (arrival) {
-        $("#arrivalsModal").modal("hide");
-        handleArrival();
+        // $("#arrivalsModal").modal("hide");
+        //handleArrival();
 
-        // code autorisation pointeuse arrivee ici
-        // try {
-        //     const last = await pointeuseApi.departures(password);
-        //     if(last.departures !== null){
-        //       $("#arrivalsModal").modal("hide");
-        //       handleArrival();
-        //     }
-        // } catch (error) {
-        //     console.log("error: ",error);
-        // }
+        //code autorisation pointeuse arrivee ici
+        try {
+          const last = await pointeuseApi.lastPointeuse(concatValue);
+          console.log("Pointeuse Line 73", last);
+          if (last.departures != null || last === false) {
+            handleArrival();
+          } else {
+            alert("Vous n' êtes pas autorisé");
+          }
+        } catch (error) {
+          console.log("error: ", error);
+        }
+
+        $("#arrivalsModal").modal("hide");
       }
       if (departure) {
+        console.log("Pointeuse Line 86");
         $("#departuresModal").modal("hide");
         handleDepartures();
       }
@@ -90,17 +53,16 @@ const PointeuseComponent = props => {
     concatValue = "";
     setArrival(true);
     setDeparture(false);
+    $("#arrivalsModal").modal("show");
   };
 
   const handleClickDeparture = () => {
     setPassword("");
     concatValue = "";
-    if (arrival) {
-      setArrival(false);
-      setDeparture(true);
-    } else {
-      alert("Cliquez sur 'Arrivée, pour indiquer votre arrivée");
-    }
+
+    setArrival(false);
+    setDeparture(true);
+    $("#departuresModal").modal("show");
   };
 
   //Gestion de l'event submit du formulaire d'enregistrement des heures d'arrivée
@@ -127,8 +89,12 @@ const PointeuseComponent = props => {
   const handleDepartures = async () => {
     if (password !== "") {
       let departures = new Date();
+      console.log("Pointeuse Line 137");
       try {
+        console.log("Pointeuse Line 139 ", concatValue);
         const departure = await pointeuseApi.update(concatValue, departures);
+        console.log("Pointeuse Line 141", departure);
+        //console.log("concatValue ",concatValue)
         $("#departuresModal").modal("toggle");
       } catch (error) {
         //
@@ -149,16 +115,6 @@ const PointeuseComponent = props => {
 
   return (
     <div className="place-bis-bis">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <Clock />
       <h1 id="horloge" className="text-center"></h1>
 
@@ -166,8 +122,6 @@ const PointeuseComponent = props => {
         <button
           type="button"
           className="btn btn-success"
-          data-toggle="modal"
-          data-target="#arrivalsModal"
           onClick={() => handleClickArrival()}
           style={{ width: "165px", height: "65px" }}
         >
