@@ -64,20 +64,22 @@ const PointeuseComponent = props => {
     if (concatValue.length == 6) {
       console.log("[pointeuse] line 68", concatValue);
       if (arrival) {
+        // $("#arrivalsModal").modal("hide");
+        //handleArrival();
+
+        //code autorisation pointeuse arrivee ici
+        try {
+            const last =  pointeuseApi.lastPointeuse(password);
+            if(last.departures != null){
+              handleArrival();
+            }else{
+              alert("Vous n' êtes pas autorisé")
+            }
+        } catch (error) {
+            console.log("error: ",error);
+        }
+
         $("#arrivalsModal").modal("hide");
-        handleArrival();
-
-        // code autorisation pointeuse arrivee ici
-        // try {
-        //     const last = await pointeuseApi.departures(password);
-        //     if(last.departures !== null){
-        //       $("#arrivalsModal").modal("hide");
-        //       handleArrival();
-        //     }
-        // } catch (error) {
-        //     console.log("error: ",error);
-        // }
-
       }
       if (departure) {
         $("#departuresModal").modal("hide");

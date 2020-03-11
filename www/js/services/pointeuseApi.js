@@ -67,27 +67,38 @@ function update(password, departures) {
     .catch(error => console.log("error", error));
 }
 
-function lastPointeuse(password) {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+async function lastPointeuse(password) {
+  // var myHeaders = new Headers();
+  // myHeaders.append("Content-Type", "application/json");
 
-  var raw = JSON.stringify({
-    passwords: password
-  });
+  // var raw = JSON.stringify({
+  //   passwords: password
+  // });
 
-  console.log(raw);
+  // console.log(raw);
 
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow"
-  };
+  // var requestOptions = {
+  //   method: "POST",
+  //   headers: myHeaders,
+  //   body: raw,
+  //   redirect: "follow"
+  // };
 
-  fetch(config + "api/lastPointeuse", requestOptions)
-    .then(response => response.json())
-    .then(result => console.log(result))
-    .catch(error => console.log("error", error));
+  console.log("le password: ",password)
+  try {
+      const response = await fetch(`${config}api/lastPointeuse/${password}`);
+      const data = await response.json();
+      console.log("The last pointeuse: ",data);
+      return data;    
+  } catch (error) {
+    console.log("Error from lastPointeuse: ",error);
+  }
+
+
+  // fetch(config + "api/lastPointeuse", requestOptions)
+  //   .then(response => response.json())
+  //   .then(result => console.log(result))
+  //   .catch(error => console.log("error", error));
 }
 
 export default {
