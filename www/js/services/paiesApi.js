@@ -1,6 +1,7 @@
 import config from "../config";
-async function findAll(year, month) {
-  console.log(`year: ${year} - month ${month}`);
+
+
+async function findAll(year,month){
   try {
     const response = await fetch(`${config}api/paie/findAll/${year}/${month}`);
     const data = await response.json();
@@ -11,143 +12,122 @@ async function findAll(year, month) {
   }
 }
 
-async function getWeeksByUser(year, month, id) {
-  console.log(`year: ${year} - month ${month} - id ${id}`);
-  try {
-    const response = await fetch(
-      `${config}api/paie/getWeeksByUser/${year}/${month}/${id}`
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(`Error: ${error}`);
-  }
-}
-
-async function TotalHoursDone(year, month, id) {
-  console.log(`year: ${year} - month ${month} - id ${id}`);
-  try {
-    const response = await fetch(
-      `${config}api/paie/TotalHoursDone/${year}/${month}/${id}`
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(`Error: ${error}`);
-  }
-}
-async function TotalHoursDones(year, month, id) {
-  console.log(`year: ${year} - month ${month} - id ${id}`);
-  try {
-    const response = await fetch(
-      `http://localhost:5000/api/paie/TotalHoursDones/${year}/${month}/${id}`
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(`Error: ${error}`);
-  }
-}
-
-async function TotalPlanningHours(year, month, id) {
-  console.log(`year: ${year} - month ${month} - id ${id}`);
-  try {
-    const response = await fetch(
-      `${config}api/paie/TotalPlanningHours/${year}/${month}/${id}`
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(`Error: ${error}`);
-  }
-}
-
-async function getOvertimes(year, month, id) {
-  console.log(`year: ${year} - month ${month} - id ${id}`);
-  try {
-    const response = await fetch(
-      `${config}api/paie/getOvertimes/${year}/${month}/${id}`
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(`Error: ${error}`);
-  }
-}
-
-async function getUser(id) {
-  try {
-    const response = await fetch(`${config}apip/users/${id}`);
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(`Error: ${error}`);
-  }
-}
-
-/*Renvoie un tableau de event
-      {
-        "week": "8",
-        "jour": "5", à faire passer dans un tableau de jour exple [lundi,...]
-        "title": "La sécurité de louer plus simplement",
-        "eventID": "1",
-        "debutPrevu": "2020-02-21 17:30:24",
-        "finPrevu": "2020-02-21 18:00:24",
-        "user": "2"
+  async function getWeeksByUser(year,month,id){
+    try {
+        const response = await fetch(`${config}api/paie/getWeeksByUser/${year}/${month}/${id}`);
+        const data = await response.json();
+        console.log(data);
+        return data;   
+    } catch (error) {
+      console.log(`Error: ${error}`);
     }
-  */
-async function getEventsByUser(year, month, id) {
-  console.log(`year: ${year} - month ${month} - id ${id}`);
-  try {
-    const response = await fetch(
-      `http://localhost:5000/api/paie/getEventsByUser/${year}/${month}/${id}`
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(`Error: ${error}`);
   }
-}
 
-/*Renvoie un tableau de pointeuses
-    {
-        "week": "8",
-        "jour": "5",
-        "pointeusesID": "2",
-        "debutReel": "2020-02-21 17:35:24",
-        "finPrevu": "2020-02-21 18:00:24",
-        "user": "2"
-    },
-  */
-async function getPointeusesByUser(year, month, id) {
-  console.log(`year: ${year} - month ${month} - id ${id}`);
-  try {
-    const response = await fetch(
-      `http://localhost:5000/api/paie/getPointeusesByUser/${year}/${month}/${id}`
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(`Error: ${error}`);
+
+  async function TotalHoursDone(year,month,id){
+    try {
+        const response = await fetch(`${config}api/paie/TotalHoursDone/${year}/${month}/${id}`);
+        const data = await response.json();
+        console.log(data);
+        return data;   
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
   }
-}
 
-export default {
-  findAll,
-  getWeeksByUser,
-  TotalHoursDone,
-  TotalHoursDones,
-  TotalPlanningHours,
-  getOvertimes,
-  getUser,
-  getEventsByUser,
-  getPointeusesByUser
-};
+  async function TotalHoursDones(year,month,id){
+    try {
+        const response = await fetch(`${config}api/paie/TotalHoursDones/${year}/${month}/${id}`);
+        const data = await response.json();
+        console.log(data);
+        return data;   
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  }
+
+
+  async function TotalPlanningHours(year,month,id){
+    try {
+        const response = await fetch(`${config}api/paie/TotalPlanningHours/${year}/${month}/${id}`);
+        const data = await response.json();
+        console.log(data);
+        return data;   
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  }
+
+
+  async function getOvertimes(year,month,id){
+    try {
+        const response = await fetch(`${config}api/paie/getOvertimes/${year}/${month}/${id}`);
+        const data = await response.json();
+        console.log(data);
+        return data;   
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  }
+
+  async function getUser(id){
+    try {
+        const response = await fetch(`${config}apip/users/${id}`);
+        const data = await response.json();
+        console.log(data);
+        return data;   
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  }
+
+
+  async function getEventsByUser(year,month,id){
+    console.log(`year: ${year} - month ${month} - id ${id}`);
+    try {
+        const response = await fetch(`${config}api/paie/getEventsByUser/${year}/${month}/${id}`);
+        const data = await response.json();
+        console.log(data);
+        return data;   
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  }
+
+
+  async function getPointeusesByUser(year,month,id){
+    console.log(`year: ${year} - month ${month} - id ${id}`);
+    try {
+        const response = await fetch(`${config}api/paie/getPointeusesByUser/${year}/${month}/${id}`);
+        const data = await response.json();
+        console.log(data);
+        return data;   
+    } catch (error) {
+      console.log(`Error from getPointeusesByUser : ${error}`);
+    }
+  }
+
+  async function weeksPlanned(year,month,id){
+    try {
+      const response = await fetch(`${config}api/paie/weeksPlanned/${year}/${month}/${id}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log(`Error from weeksPlanned : ${error}`);
+    }
+  }
+
+
+
+  export default {
+    findAll,
+    getWeeksByUser,
+    TotalHoursDone,
+    TotalHoursDones,
+    TotalPlanningHours,
+    getOvertimes,
+    getUser,
+    getEventsByUser,
+    getPointeusesByUser,
+    weeksPlanned
+  };

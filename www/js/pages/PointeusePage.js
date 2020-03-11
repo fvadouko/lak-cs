@@ -4,23 +4,29 @@ import PointeuseComponent from "../components/pointeuse";
 
 const Pointeusepage = props => {
   return (
-    <div>
-      <h3 className="text-center">Pointeuse</h3>
-      <br />
+    <div className="container">
+    <Link to="/" >
+      <button
+        className="btn btn-light btn-lg"
+        href="#"
+        role="button"
+        style={{position: "relative",top: "45px",left: "45px"}}
+      >
+        Retour
+      </button>
+    </Link>
+<h3 className="text-center">Planning</h3>
+<button
+        className="btn btn-light btn-lg invisible"
+        href="#"
+        role="button"
+        style={{ marginTop: "10%" }}
+      >
+      
+      </button>
       <PointeuseComponent />
-      <div className="place-bis">
-        <Link to="/">
-          <button
-            className="btn btn-light btn-lg"
-            href="#"
-            role="button"
-            style={{ marginTop: "10%" }}
-          >
-            Retour
-          </button>
-        </Link>
-      </div>
-    </div>
+</div>
+ 
   );
 };
 

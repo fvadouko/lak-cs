@@ -20,7 +20,6 @@ const Tableau = ({ onChangePageOne }) => {
   const fetchPaies = async (year,month) =>{
     try {
       let pt = await paiesApi.findAll(year,month);
-      console.log("le resultat "+pt);
       setPaies(pt);
     } catch (error) {
       console.log("error", error)
@@ -32,9 +31,7 @@ const Tableau = ({ onChangePageOne }) => {
     let cMonth = e.target.value;
 
     setcurMonth(cMonth);
-    //setcurYear()
     fetchPaies(cYear,cMonth);
-
   }
 
   useEffect(() =>{
@@ -46,7 +43,7 @@ const Tableau = ({ onChangePageOne }) => {
     for(let i=0;i<=cm;i++){
       list.push(month_string[i])
     }
-    console.log("La liste de mois: "+list);
+
     setMonths(list);
     setcurMonth(cMonth);
     setcurYear(cYear);
@@ -56,163 +53,82 @@ const Tableau = ({ onChangePageOne }) => {
   return (
 
     <div>
-    <div class="limiter">
-      <div class="container-table100">
-
-        <select
-            class="form-control"
-            id="exampleFormControlSelect1"
-            name="periode"
-            value={curMonth}
-            onChange={handlePeriodePaie}
-            style={{marginBottom:"-20px"}}
-        >
-            {
-              months.map(month=>{
-                return(
-                  <option value={month}>{month} {curYear}</option>
-                  )
-              })
-            }
-        </select>
-
-        <div class="wrap-table100">
-          <div class="table100 ver5 m-b-110">
-            <div class="table100-head">
-
-              <table>
-                <thead>
-                  <tr class="row100 head">
-
-                    {
-                    <th class="cell100 column1">
-                      Employes
-                    </th>}
-                    <th class="cell100 column2 text-center">
-                      Vol Horaire mensuel
-                    </th>
-                    <th class="cell100 column3 text-center">
-                      Taux horaire brut
-                    </th>
-                    <th class="cell100 column4 text-center">
-                      Sal mensuel brut
-                    </th>
-                  </tr>
-                </thead>
-              </table>              
-            </div>
-
-            <div class="table100-body js-pscroll">
-              <table>
-                <tbody> 
-                  {
-                    paies.map(pt =>{
-                      return(
-                        <tr class="row100 body" 
-                            onClick={() => onChangePageOne(pt.year,pt.month,pt.user)} 
-                        >
-                        <td class="cell100 column1">
-                          <img src="img/avatar.png" />
-                            {pt.name}
-                        </td>
-                        <td class="cell100 column2 text-center">{pt.volumehoraire}</td>
-                        <td class="cell100 column3 text-center">{pt.hourlyrate}</td>
-                        <td class="cell100 column4 text-center">{pt.rawsalary}</td>
-                      </tr>
-                      )
-                    })
-                  }                  
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    /*
-    <div>
-      <div class="limiter">
+        <div class="limiter">
           <div class="container-table100">
-        <div class="wrap-table100">
-          <div class="table100 ver5 m-b-110">
-            <div class="table100-head">
-              <table>
-                <thead>
-                  <tr class="row100 head">
-                    <th class="cell100 column1" colSpan="4" style={{paddingLeft:"100px"}}>
 
-                      <div >
-                          <select
-                            class="form-control"
-                            id="exampleFormControlSelect1"
-                            name="periode"
-                            value={curMonth}
-                            onChange={handlePeriodePaie}
-                            style={{marginTop:"-10px"}}
-                          >
-                            {
-                              months.map(month=>{
-                                return(
-                                  <option value={month}>{month} {curYear}</option>
-                                  )
-                              })
-                            }
-
-                          </select>
-                      </div>
-
-                    </th>
-                  </tr>
-
-                  <tr class="row100 head">
-                    <th class="cell100 column1">Employes</th>
-                    <th class="cell100 column2 text-center">
-                      Vol Horaire mensuel
-                    </th>
-                    <th class="cell100 column3 text-center">
-                      Taux horaire brut
-                    </th>
-                    <th class="cell100 column4 text-center">
-                      Sal mensuel brut
-                    </th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-
-            <div class="table100-body js-pscroll">
-              <table>
-                <tbody>
+            <select
+                class="form-control"
+                id="exampleFormControlSelect1"
+                name="periode"
+                value={curMonth}
+                onChange={handlePeriodePaie}
+                style={{marginBottom:"15px"}}
+            >
                 {
-                  paies.map(pt =>{
+                  months.map(month=>{
                     return(
-                      <tr class="row100 body" 
-                          onClick={() => onChangePageOne(pt.year,pt.month,pt.user)} 
-                      >
-                      <td class="cell100 column1">
-                        <img src="img/avatar.png" />
-                          {pt.name}
-                      </td>
-                      <td class="cell100 column2 text-center">{pt.volumehoraire}</td>
-                      <td class="cell100 column3 text-center">{pt.hourlyrate}</td>
-                      <td class="cell100 column4 text-center">{pt.rawsalary}</td>
-                    </tr>
-                    )
+                      <option value={month}>{month} {curYear}</option>
+                      )
                   })
                 }
-                </tbody>
-              </table>
+            </select>
+
+            <div class="wrap-table100">
+              <div class="table100 ver5 m-b-110">
+                <div class="table100-head">
+
+                  {paies.length>0 && (<table>
+                    <thead>
+                      <tr class="row100 head">
+
+                        {
+                        <th class="cell100 column1">
+                          Employes
+                        </th>}
+                        <th class="cell100 column2 text-center">
+                          Vol Horaire mensuel
+                        </th>
+                        <th class="cell100 column3 text-center">
+                          Taux horaire brut
+                        </th>
+                        <th class="cell100 column4 text-center">
+                          Sal mensuel brut
+                        </th>
+                      </tr>
+                    </thead>
+                  </table>)  }            
+                </div>
+
+                <div class="table100-body js-pscroll">
+                  <table>
+                    <tbody> 
+                      {
+                        paies.map(pt =>{
+                          return(
+                            <tr class="row100 body" 
+                                onClick={() => onChangePageOne(pt.year,pt.month,pt.user)} 
+                            >
+                            <td class="cell100 column1">
+                              <img src="img/avatar.png" />
+                                {pt.name}
+                            </td>
+                            <td class="cell100 column2 text-center">{pt.volumehoraire}</td>
+                            <td class="cell100 column3 text-center">{pt.hourlyrate}</td>
+                            <td class="cell100 column4 text-center">{pt.rawsalary}</td>
+                          </tr>
+                          )
+                        })
+                      }                  
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      </div>   
-    </div>
-  
-    */
-    );
+
+  );
 };
 
 export default Tableau;

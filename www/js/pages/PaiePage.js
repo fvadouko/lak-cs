@@ -5,10 +5,6 @@ import { Link } from "react-router-dom";
 import Detail from "../components/paies/detail";
 import paiesApi from "../../js/services/paiesApi";
 
-// var table = true;
-// var fiche = false;
-// var detail = false;
-
 const Paiepage = props => {
   const [tables, setTables] = useState(true);
   const [fiches, setFiches] = useState(false);
@@ -104,7 +100,18 @@ const Paiepage = props => {
   };
 
   return (
-    <div>
+    <div className="container">
+      <Link to="/">
+        <button
+          className="btn btn-light btn-lg"
+          href="#"
+          role="button"
+          style={{ position: "relative", top: "37px", left: "45px" }}
+        >
+          Retour
+        </button>
+      </Link>
+
       <h3 className="text-center">Paies</h3>
       <br />
       {tables ? <Tableau onChangePageOne={handleChangePageOne} /> : null}

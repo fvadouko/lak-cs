@@ -66,6 +66,17 @@ const PointeuseComponent = props => {
       if (arrival) {
         $("#arrivalsModal").modal("hide");
         handleArrival();
+
+        // code autorisation pointeuse arrivee ici
+        // try {
+        //     const last = await pointeuseApi.departures(password);
+        //     if(last.departures !== null){
+        //       $("#arrivalsModal").modal("hide");
+        //       handleArrival();
+        //     }
+        // } catch (error) {
+        //     console.log("error: ",error);
+        // }
       }
       if (departure) {
         $("#departuresModal").modal("hide");

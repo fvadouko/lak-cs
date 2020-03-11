@@ -67,7 +67,31 @@ function update(password, departures) {
     .catch(error => console.log("error", error));
 }
 
+function lastPointeuse(password) {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    passwords: password
+  });
+
+  console.log(raw);
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+  };
+
+  fetch(config + "api/lastPointeuse", requestOptions)
+    .then(response => response.json())
+    .then(result => console.log(result))
+    .catch(error => console.log("error", error));
+}
+
 export default {
   create,
-  update
+  update,
+  lastPointeuse
 };

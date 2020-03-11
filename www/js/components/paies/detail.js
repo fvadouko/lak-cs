@@ -9,7 +9,7 @@ const Detail = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overti
 
   const [prevu,setPrevu] = useState([]);
   const [reel,setReel] = useState([]);
-  const [rhdone,setRhdone] = useState();
+  const [weeksPlan,setWeeksPlan] = useState([]);
 
   const jour_string = ["Dim","Lun","Mar","Mer","Jeu","Vend","Sam"];
 
@@ -19,7 +19,6 @@ const Detail = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overti
     try {
       const tp = await paieApi.getEventsByUser(year,month,user.id);
       setPrevu(tp);    
-      console.log("liste des prevus: " +tp);  
     } catch (error) {
       console.log("error: " +error);
     }
@@ -28,28 +27,22 @@ const Detail = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overti
   const getReel = async(year,month,user)=>{
     try {
       const tr = await paieApi.getPointeusesByUser(year,month,user.id);
-      setReel(tr);  
-      console.log("liste des reels: "+tr);    
+      setReel(tr);   
     } catch (error) {
       console.log("error: " +error);
     }
   }
 
-
-  const ReelHoursDone = async(year,month,user)=>{
+  const getWeeksPlanned = async(year,month,user)=>{
     try {
-      const rh = await paieApi.TotalHoursDones(year,month,user.id);
-
-      setRhdone(rh.total);  
-      console.log("total des heures reelles: "+rh.total);    
+      const weeksPlan = await paieApi.weeksPlanned(year,month,user.id);
+      setWeeksPlan(weeksPlan);
     } catch (error) {
-      console.log("error: " +error);
+      console.log("error from getWeeksPlanned : " +error);
     }
   }
-
 
   const ecart = (a,b,c,d)=>{
-
     
     let ma = new Date(a);//Event
     let mb = new Date(b);
@@ -112,7 +105,7 @@ const Detail = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overti
 
     getPrevu(year,month,user);
     getReel(year,month,user);
-    ReelHoursDone(year,month,user);
+    getWeeksPlanned(year,month,user);
 
   },[])
 
@@ -144,36 +137,39 @@ const Detail = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overti
         <tbody>
           
             {
+
               prevu.map((prev,treel)=>{
-                lblFor:for(let i=0;i<reel.length;i++){
-                  if( parseInt(prev.week) == parseInt(reel[i].week) && 
-                      parseInt(prev.jour) == parseInt(reel[i].jour) &&
-                      parseInt(prev.hdbt) == parseInt(reel[i].hdbt))
-                      {
-                        treel = reel[i];
-                        break lblFor;
-                  }
-                }
-                console.log('The new value '+treel)
-                  return(
-                    <tr>
-                    <td>{jour_string[prev.jour]} {prev.lejour}</td>
-                    <td>{prev.debutPrevu} - {prev.finPrevu}</td>
-                    <td>{treel.debutReel} - {treel.finReel}</td>
-                    <td>
-                      {
-                        ecart(treel.heureArrivee,treel.heureDepart,prev.heureArrivee,prev.heureDepart)
-                      }
-                    </td>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        {workTime(treel.heureArrivee,treel.heureDepart)}
-                    </td>
-                    </tr>                  
-                  )
-              })
+                  lblFor:for(let i=0;i<reel.length;i++){
+                    if( parseInt(prev.week) == parseInt(reel[i].week) && 
+                        parseInt(prev.jour) == parseInt(reel[i].jour) &&
+                        parseInt(prev.hdbt) == parseInt(reel[i].hdbt))
+                        {
+                          treel = reel[i];
+                          break lblFor;
+                        }
+                    }
+                    return(
+
+                        <tr>
+                          <td>{jour_string[prev.jour]} {prev.lejour}</td>
+                          <td>{prev.debutPrevu} - {prev.finPrevu}</td>
+                          <td>{treel.debutReel} - {treel.finReel}</td>
+                          <td>
+                            {
+                              ecart(treel.heureArrivee,treel.heureDepart,prev.heureArrivee,prev.heureDepart)
+                            }
+                          </td>
+                          <td>
+                              1
+                          </td>
+                          <td>
+                              {workTime(treel.heureArrivee,treel.heureDepart)}
+                          </td>
+                        </tr> 
+
+                    )
+                })
+
             }
 
           <tr style={{ backgroundColor: "#C0C0C0" }}>
@@ -190,147 +186,6 @@ const Detail = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overti
         </tbody>
       </table>
 
-
-      
-      {/*
-          <tr>
-            <td>Sam 2</td>
-            <td>08:00-12:00</td>
-            <td>08:00-12:00</td>
-            <td></td>
-            <td>1</td>
-            <td>04:00</td>
-          </tr>
-          <tr>
-            <td>Dim 3</td>
-          </tr>
-
-          <tr>
-            <th>Sem 28</th>
-            <td></td>
-            <td></td>
-            <td>2h</td>
-            <td>2</td>
-            <td>08:00</td>
-          </tr>
-
-          <tr>
-            <td>Lun 4</td>
-            <td>08:00-12:00</td>
-            <td>08:00-12:00</td>
-            <td></td>
-            <td></td>
-            <td>04:00</td>
-          </tr>
-
-          <tr>
-            <td>Mar 5</td>
-            <td>08:00-12:00</td>
-            <td>08:00-12:00</td>
-            <td></td>
-            <td>1</td>
-            <td>04:00</td>
-          </tr>
-
-          <tr>
-            <td>Merc 6</td>
-            <td>08:00-10:00</td>
-            <td>08:00-08:12</td>
-            <td></td>
-            <td>1</td>
-            <td>04:00</td>
-          </tr>
-
-          <tr>
-            <td>Jeu 7</td>
-            <td>08:00-10:00</td>
-            <td>08:00-08:12</td>
-            <td>1h35</td>
-            <td></td>
-            <td>05:35</td>
-          </tr>
-
-          <tr>
-            <td>Vend 8</td>
-            <td>08:00-10:00</td>
-            <td>08:00-08:12</td>
-            <td></td>
-            <td></td>
-            <td>04:00</td>
-          </tr>
-
-          <tr>
-            <td>Sam 9</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>Dim 10</td>
-            <td>08:00-12:00</td>
-            <td>08:00-12:00</td>
-            <td></td>
-            <td>1</td>
-            <td>04:00</td>
-          </tr>
-
-          <tr>
-            <th>Sem 29</th>
-            <td></td>
-            <td></td>
-            <td>1h35</td>
-            <td>3</td>
-            <td>21:35</td>
-          </tr>
-
-          <tr>
-            <td>mard 11</td>
-            <td>08:00-12:00</td>
-            <td>08:00-12:00</td>
-            <td>15min</td>
-            <td></td>
-            <td>04:15</td>
-          </tr>
-
-          <tr>
-            <td>merc 12</td>
-            <td>08:00-12:00</td>
-            <td>08:00-12:00</td>
-            <td>1h30</td>
-            <td>1h</td>
-            <td>04:00</td>
-          </tr>
-
-          <tr>
-            <td>Jeu 13</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>sam 15</td>
-            <td>08:00-12:00</td>
-            <td>08:00-12:00</td>
-            <td></td>
-            <td>1</td>
-            <td>04:00</td>
-          </tr>
-
-          <tr>
-            <td>Dim 16</td>
-            <td>08:00-12:00</td>
-            <td>08:00-12:00</td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>      
-      */}
     </div>
     
   );

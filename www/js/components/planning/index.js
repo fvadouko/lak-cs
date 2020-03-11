@@ -302,7 +302,7 @@ export default class BlockEvents extends SampleBase {
   render() {
     console.log("Line 298", this.employeeData);
     return (
-      <div class="container">
+      <div>
         {this.state.loading ? (
           <div className="d-flex schedule-control-section">
             <div className="p-2 w-100 control-section">
