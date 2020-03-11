@@ -52,7 +52,7 @@ const PointeuseComponent = props => {
     //refresh();
   };
 
-  const fillInputPassword = value => {
+  const fillInputPassword = async  value => {
     if (concatValue.length <= 6) {
       concatValue = concatValue.toString().trim() + value.toString().trim();
       concatValue = concatValue.trim();
@@ -69,8 +69,9 @@ const PointeuseComponent = props => {
 
         //code autorisation pointeuse arrivee ici
         try {
-            const last =  pointeuseApi.lastPointeuse(password);
-            if(last.departures != null){
+            const last =  await pointeuseApi.lastPointeuse(concatValue);
+           console.log("Pointeuse Line 73",last)
+            if(last.departures != null || last === false){
               handleArrival();
             }else{
               alert("Vous n' êtes pas autorisé")
@@ -81,7 +82,8 @@ const PointeuseComponent = props => {
 
         $("#arrivalsModal").modal("hide");
       }
-      if (departure) {
+    if (departure) {
+        console.log("Pointeuse Line 86")
         $("#departuresModal").modal("hide");
         handleDepartures();
       }
@@ -93,17 +95,16 @@ const PointeuseComponent = props => {
     concatValue = "";
     setArrival(true);
     setDeparture(false);
+    $("#arrivalsModal").modal("show");
   };
 
   const handleClickDeparture = () => {
     setPassword("");
     concatValue = "";
-    if (arrival) {
+   
       setArrival(false);
       setDeparture(true);
-    } else {
-      alert("Cliquez sur 'Arrivée, pour indiquer votre arrivée");
-    }
+      $("#departuresModal").modal("show");
   };
 
   //Gestion de l'event submit du formulaire d'enregistrement des heures d'arrivée
@@ -133,8 +134,12 @@ const PointeuseComponent = props => {
   const handleDepartures = async () => {
     if (password !== "") {
       let departures = new Date();
+      console.log("Pointeuse Line 137")
       try {
+        console.log("Pointeuse Line 139 ",concatValue)
         const departure = await pointeuseApi.update(concatValue, departures);
+        console.log("Pointeuse Line 141", departure)
+        //console.log("concatValue ",concatValue)
         $("#departuresModal").modal("toggle");
       } catch (error) {
         //
@@ -172,8 +177,6 @@ const PointeuseComponent = props => {
         <button
           type="button"
           className="btn btn-success"
-          data-toggle="modal"
-          data-target="#arrivalsModal"
           onClick={() => handleClickArrival()}
           style={{ width: "165px", height: "65px" }}
         >
