@@ -64,7 +64,9 @@ export default class BlockEvents extends SampleBase {
   async handleFetches() {
     try {
       const data = await eventApi.findEvents();
-
+      setVariable(data)
+      console.log("Planning, data Line 67", data);
+      return;
       data.forEach(dt => {
         let last = dt.user.lastIndexOf("/") + 1;
         dt.user = parseInt(dt.user.substr(last));
