@@ -54,7 +54,9 @@ export default class BlockEvents extends SampleBase {
   }
 
   componentDidMount() {
+    console.log("papi vient ici")
     this.handleFetches();
+    console.log("papi va la ba")
   }
 
   componentDidUpdate() {
@@ -64,7 +66,6 @@ export default class BlockEvents extends SampleBase {
   async handleFetches() {
     try {
       const data = await eventApi.findEvents();
-
       data.forEach(dt => {
         let last = dt.user.lastIndexOf("/") + 1;
         dt.user = parseInt(dt.user.substr(last));

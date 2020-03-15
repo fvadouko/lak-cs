@@ -1,14 +1,35 @@
-import config from "../config";
+// import config from "../config";
 
+const moment = require('moment');
 
-async function findAll(year,month){
-  try {
-    const response = await fetch(`${config}api/paie/findAll/${year}/${month}`);
-    const data = await response.json();
-    console.log(data);
-    return data;
+const path = require ('path');
+const database = require('nedb');
+const eventsUrl = path.join(__dirname,'/db/events.db');
+const usersUrl = path.join(__dirname,'/db/users.db');
+const pointeusesUrl = path.join(__dirname,'/db/pointeuses.db');
+
+let EVENTS =  new database({filename:eventsUrl});
+let USERS =  new database({filename:usersUrl});
+let POINTEUSES =  new database({filename:usersUrl});
+
+// async function findAll(year,month){
+//   try {
+//     const response = await fetch(`${config}api/paie/findAll/${year}/${month}`);
+//     const data = await response.json();
+//     console.log(data);
+//     return data;
+//   } catch (error) {
+//     console.log(`Error: ${error}`);
+//   }
+// }
+ const findAll = async (year,month)=>{
+    try {
+      const response = await fetch(`${config}api/paie/findAll/${year}/${month}`);
+      const data = await response.json();
+      console.log(data);
+      return data;
   } catch (error) {
-    console.log(`Error: ${error}`);
+      console.log(`Error: ${error}`);
   }
 }
 

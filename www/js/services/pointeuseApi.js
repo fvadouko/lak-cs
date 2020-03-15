@@ -1,37 +1,60 @@
-import config from "../config";
-import moment from "moment";
+// import config from "../config";
+const moment = require('moment');
+const path = require ('path');
+const database = require('nedb');
 
-function create(password, arrivals, departures) {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+const pointeusesUrl = path.join(__dirname,'/db/pointeuses.db');
+const eventsUrl = path.join(__dirname,'/db/events.db');
+const usersUrl = path.join(__dirname,'/db/users.db');
+const eventApi = require('./eventApi');
+const userApi = require('./userApi');
 
-  var raw = JSON.stringify({
-    passwords: password,
-    arrivals: arrivals,
-    departures: null
+let POINTEUSES =  new database({filename:pointeusesUrl});
+let USERS =  new database({filename:usersUrl});
+let EVENTS =  new database({filename:eventsUrl});
+
+
+const loadPointeuse = ()=>{
+  POINTEUSES.loadDatabase((err)=>{
+    if(err){
+        return(`From pointeuseApi.create error in POINTEUSES.loadDatabase: ${err}`);
+    }      
   });
-
-  console.log(raw);
-
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow"
-  };
-
-  fetch(config + "api/create/pointeuses", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log("error", error));
 }
 
+const create = async(password, arrivals, e_id)=>{
 
+  let user = await userApi.findUserByPassword(password);
+  let e_jour = arrivals.getDays();
 
-function update(password, departures) {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-console.log("Error from update: ",raw);
+  POINTEUSES.loadDatabase((err)=>{
+    if(err){
+        console.log(`From pointeuseApi.create error in POINTEUSES.loadDatabase: ${err}`);
+    };        
+  });
+
+  var pointeuse = {
+      arrivals: arrivals,
+      departures: null,
+      user_id: user._id,
+      overtimes:0,
+      week: parseInt(moment().weeks()),
+      month: monthsArray[parseInt(new Date().getMonth())],
+      year: parseInt(moment().year()),
+      event_id:e_id
+  };
+
+  console.log(pointeuse);
+
+  POINTEUSES.insert(pointeuse,(err)=>{
+    if(err){
+      console.log(`From pointeuseApi.create error in POINTEUSES.insert: ${err}`);
+    }
+  });
+}
+
+const setDepartures = async(password, departures)=>{
+
   let monthsArray = [
     "janvier",
     "févier",
@@ -47,48 +70,60 @@ console.log("Error from update: ",raw);
     "décembre"
   ];
 
-  var raw = JSON.stringify({
-    passwords: password,
-    departures: departures,
-    week: parseInt(moment().weeks()),
-    month: monthsArray[parseInt(new Date().getMonth())],
-    year: parseInt(moment().year())
-  });
+  let user = await userApi.findUserByPassword(password);
+  let pointeuse = await whereDeparturesIsNull(user._id);
 
-  console.log("Error from update: ",raw);
-
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow"
+  var raw = {
+    departures: departures
   };
 
-  fetch(config + "api/edit/pointeuses", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log("error", error));
+  POINTEUSES.update({_id:pointeuse._id},{$set:raw},{},(err)=>{
+
+  });
+
+}
+
+
+const whereDeparturesIsNull = async(u_id)=>{
+
+  loadPointeuse();
+
+  return(
+    new Promise((resolve,reject)=>{
+      POINTEUSES.findOne({user_id:u_id,departure:null},(err,pointeuse)=>{
+        if(err){
+          reject(`From pointeuseApi.whereDeparturesIsNull error in POINTEUSES.findOne: ${err}`);
+        }else{
+          resolve(pointeuse);
+        }
+      });
+    })
+  )
+
 }
 
 
+const pointeusesByUser = async(p_year,p_month,u_id)=>{
 
-async function lastPointeuse(password) {
+  loadPointeuse();
 
-  console.log("le password: ",password);
-  
-  try {
-      const response = await fetch(`${config}api/lastPointeuse/${password}`);
-      const data = await response.json();
-      console.log("The last pointeuse: ",data);
-      return data;    
-  } catch (error) {
-    console.log("Error from lastPointeuse: ",error);
-  }
-
+  return(
+    new Promise((resolve,reject)=>{
+      POINTEUSES.find({year:p_year,month:p_month,user_id:u_id},(err,pointeuses)=>{
+        if(err){
+          reject(`From pointeuseApi.pointeusesByUser error in POINTEUSES.find`);
+        }else{
+          resolve(pointeuses);
+        }
+      });
+    })
+  )
 }
+
 
 export default {
   create,
-  update,
-  lastPointeuse
+  setDepartures,
+  pointeusesByUser,
+  whereDeparturesIsNull
 };

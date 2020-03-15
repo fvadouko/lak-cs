@@ -137,7 +137,7 @@ const PointeuseComponent = props => {
       console.log("Pointeuse Line 137")
       try {
         console.log("Pointeuse Line 139 ",concatValue)
-        const departure = await pointeuseApi.update(concatValue, departures);
+        const departure = await pointeuseApi.setDepartures(concatValue, departures);
         console.log("Pointeuse Line 141", departure)
         //console.log("concatValue ",concatValue)
         $("#departuresModal").modal("toggle");
