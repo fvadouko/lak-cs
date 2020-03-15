@@ -1,16 +1,17 @@
-import config from "../config";
+// import axios from "axios";
+// import config from "../config";
+// import moment from "moment";
+//const config = require('../config');
 const moment = require("moment");
-
 const path = require("path");
 const database = require("nedb");
 const eventsUrl = path.join(__dirname, "/db/events.db");
 const usersUrl = path.join(__dirname, "/db/users.db");
-// var Datastore = require("nedb"),
-//   db = new Datastore({ filename: eventsUrl, autoload: true });
+
 let EVENTS = new database({ filename: eventsUrl });
 let USERS = new database({ filename: usersUrl });
 
-function create(
+const create = (
   subject,
   department,
   startTime,
@@ -20,7 +21,7 @@ function create(
   description,
   repeat,
   timezone
-) {
+) => {
   let monthsArray = [
     "janvier",
     "févier",
@@ -44,15 +45,18 @@ function create(
     start: startTime,
     endt: endTime,
     allday: isAllDay,
-    user: employeeId,
+    user_id: employeeId,
     description: description,
     repeat: repeat,
     pointed: false,
     timezone: timezone,
     week: parseInt(moment().weeks()),
     month: monthsArray[parseInt(new Date().getMonth())],
-    year: parseInt(moment().year())
+    year: parseInt(moment().year()),
+    day: startTime.getDay()
   };
+
+  console.log(event);
   // var requestOptions = {
   //     method: "POST",
   //     headers: myHeaders,
@@ -70,20 +74,14 @@ function create(
     }
   });
 
-  return new Promise((resolve, reject) => {
-    EVENTS.find({}, (err, doc) => {
-      if (err) reject(err);
-      resolve(doc);
-    });
+  EVENTS.insert(event, err => {
+    if (err) {
+      console.log(`From eventApi.create error in EVENTS.insert: ${err}`);
+    }
   });
-  // EVENTS.insert(event, err => {
-  //   if (err) {
-  //     console.log(`From eventApi.create error in EVENTS.insert: ${err}`);
-  //   }
-  // });
-}
+};
 
-function update(
+const update = (
   id,
   subject,
   department,
@@ -94,7 +92,7 @@ function update(
   description,
   repeat,
   timezone
-) {
+) => {
   let monthsArray = [
     "janvier",
     "févier",
@@ -116,7 +114,7 @@ function update(
     start: startTime,
     endt: endTime,
     allday: isAllDay,
-    user: employeeId,
+    user_id: employeeId,
     description: description,
     repeat: repeat,
     pointed: false,
@@ -134,12 +132,60 @@ function update(
     }
   });
 
-  EVENTS.update({ _id: id }, event, {}, err => {
+  EVENTS.update({ _id: id }, { $set: { event } }, {}, err => {
     if (err) {
       console.log(`From eventApi.update error in EVENTS.update: ${err}`);
     }
   });
-}
+};
+
+//  Set Events pointed = true when pointed by a user
+const setEventPointed = e_id => {
+  EVENTS.loadDatabase(err => {
+    if (err) {
+      console.log(
+        `From eventApi.setEventPointed error in EVENTS.loadDatabase: ${err}`
+      );
+    }
+  });
+
+  EVENTS.update({ _id: e_id }, { $set: { pointed: true } }, {}, err => {
+    if (err) {
+      console.log(
+        `From eventApi.setEventPointed error in EVENTS.update: ${err}`
+      );
+    }
+  });
+};
+
+//  Return list of Events not pointed by user at a periode
+const eventsNotPointed = async (e_year, e_month, e_day, u_id) => {
+  EVENTS.loadDatabase(err => {
+    if (err) {
+      console.log(
+        `From eventApi.findEvents error in EVENTS.loadDatabase: ${err}`
+      );
+    }
+  });
+  return new Promise((resolve, reject) => {
+    EVENTS.find(
+      {
+        user_id: u_id,
+        year: e_year,
+        month: e_month,
+        day: e_day,
+        pointed: false
+      },
+      (err, events) => {
+        if (err) {
+          reject(`From eventApi.findEvents error in EVENTS.find: ${err}`);
+        } else {
+          resolve(events);
+        }
+      }
+    );
+  });
+};
 
 // async function findEvents() {
 //   return axios
@@ -154,40 +200,7 @@ function update(
 //       console.log("[eventApi] Error", error);
 //     });
 // }
-async function findEvents() {
-  // EVENTS.loadDatabase(err => {
-  //   if (err) {
-  //     console.log(
-  //       `From eventApi.findEvents error in EVENTS.loadDatabase: ${err}`
-  //     );
-  //   }
-  // });
-  return new Promise((resolve, reject) => {
-    config.loadDatabase();
-    config.insert([{ a: 5 }, { a: 42 }], function(err, newDocs) {
-      config.find({}, (err, doc) => {
-        if (err) reject(err);
-        console.log("eventApi, data Line 169", doc);
-        resolve(doc);
-      });
-    });
-  });
-}
-// async function findEvents() {
-//   return getData()
-//     .then(docs => {
-//       return docs;
-//     }) // here you will get it
-//     .catch(err => console.error(err));
-
-//   // EVENTS.find({},(err,events)=>{
-//   //     const data = (err)?`From eventApi.findEvents error in EVENTS.find: ${err}`:events;
-//   //     return data;
-//   // });
-// }
-
-//  Find Events not pointed by user
-function eventsNotPointed(e_id, e_year, e_month, e_week) {
+const findEvents = async () => {
   EVENTS.loadDatabase(err => {
     if (err) {
       console.log(
@@ -195,53 +208,36 @@ function eventsNotPointed(e_id, e_year, e_month, e_week) {
       );
     }
   });
-
-  EVENTS.find(
-    { _id: e_id, year: e_year, month: e_month, week: e_week, pointed: false },
-    (err, events) => {
-      const data = err
-        ? `From eventApi.eventsNotPointed error in EVENTS.find: ${err}`
-        : events;
-      return data;
-    }
-  );
-}
-
-//  Set Events pointed
-function setEventPointed(e_id) {
-  EVENTS.loadDatabase(err => {
-    if (err) {
-      console.log(
-        `From eventApi.setEventPointed error in EVENTS.loadDatabase: ${err}`
-      );
-    }
+  return new Promise((resolve, reject) => {
+    EVENTS.find({}, (err, event) => {
+      if (err) {
+        reject(`From eventApi.findEvents error in EVENTS.find: ${err}`);
+      } else {
+        resolve(event);
+      }
+    });
   });
+};
 
-  EVENTS.update({ _id: e_id }, { pointed: true }, {}, err => {
-    if (err) {
-      console.log(
-        `From eventApi.setEventPointed error in EVENTS.update: ${err}`
-      );
-    }
-  });
-}
-
-function findOne(search) {
+const findOne = async search => {
   EVENTS.loadDatabase(err => {
     if (err) {
       console.log(`From eventApi.findOne error in EVENTS.loadDatabase: ${err}`);
     }
   });
 
-  EVENTS.findOne({ _id: search }, (err, event) => {
-    const data = err
-      ? `From eventApi.findOne error in EVENTS.find: ${err}`
-      : event;
-    return data;
+  return new Promise((resolve, reject) => {
+    EVENTS.findOne({ _id: search }, (err, event) => {
+      if (err) {
+        reject(`From eventApi.findOne error in EVENTS.findOne: ${err}`);
+      } else {
+        resolve(event);
+      }
+    });
   });
-}
+};
 
-function deleteOne(search) {
+const deleteOne = search => {
   EVENTS.loadDatabase(err => {
     if (err) {
       console.log(
@@ -250,12 +246,12 @@ function deleteOne(search) {
     }
   });
 
-  EVENTS.delete({ _id: search }, err => {
+  EVENTS.remove({ _id: search }, err => {
     if (err) {
       console.log(`From eventApi.deleteOne error in EVENTS.delete: ${err}`);
     }
   });
-}
+};
 
 // async function papi() {
 //   let papi = await findEvents();

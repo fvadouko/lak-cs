@@ -141,8 +141,9 @@ const Detail = ({ onChangePageTwo, wksbyuser, thoursdone, tplanninghours, overti
               prevu.map((prev,treel)=>{
                   lblFor:for(let i=0;i<reel.length;i++){
                     if( parseInt(prev.week) == parseInt(reel[i].week) && 
-                        parseInt(prev.jour) == parseInt(reel[i].jour) &&
-                        parseInt(prev.hdbt) == parseInt(reel[i].hdbt))
+                        parseInt(prev.jour) == parseInt(reel[i].jour) 
+                        // && parseInt(prev.hdbt) == parseInt(reel[i].hdbt)
+                      )
                         {
                           treel = reel[i];
                           break lblFor;
