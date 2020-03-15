@@ -36,9 +36,8 @@ const create = (
     "novembre",
     "décembre"
   ];
-  //   var myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/json");
-
+  var d = new Date();
+  var n = d.getDay();
   var event = {
     title: subject,
     location: department,
@@ -53,10 +52,9 @@ const create = (
     week: parseInt(moment().weeks()),
     month: monthsArray[parseInt(new Date().getMonth())],
     year: parseInt(moment().year()),
-    day: startTime.getDay()
+    day: n
   };
 
-  console.log(event);
   // var requestOptions = {
   //     method: "POST",
   //     headers: myHeaders,

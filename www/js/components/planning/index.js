@@ -30,6 +30,7 @@ import { SampleBase } from "./sample-base";
 
 import moment from "moment";
 import $ from "jquery";
+import userApi from "../../services/userApi";
 
 loadCldr(numberingSystems, gregorian, numbers, timeZoneNames);
 
@@ -54,9 +55,7 @@ export default class BlockEvents extends SampleBase {
   }
 
   componentDidMount() {
-    console.log("papi vient ici");
     this.handleFetches();
-    console.log("papi va la ba");
   }
 
   componentDidUpdate() {
@@ -66,79 +65,88 @@ export default class BlockEvents extends SampleBase {
   async handleFetches() {
     try {
       const data = await eventApi.findEvents();
-      setVariable(data);
-      console.log("Planning, data Line 67", data);
-      return;
-      data.forEach(dt => {
-        let last = dt.user.lastIndexOf("/") + 1;
-        dt.user = parseInt(dt.user.substr(last));
-      });
 
-      let map = {
-        title: "Subject",
-        start: "StartTime",
-        endt: "EndTime",
-        allday: "IsAllDay",
-        user: "EmployeeId",
-        description: "Description",
-        repeat: "RecurrenceRule"
-      };
+      if (Array.isArray(data) && data.length > 0) {
+        // De api Symfony
+        // data.forEach(dt => {
+        //   let last = dt.user.lastIndexOf("/") + 1;
+        //   dt.user = parseInt(dt.user.substr(last));
+        // });
 
-      let newDataArray = [];
-      data.forEach(dt => {
-        if (
-          dt.repeat == "Never" ||
-          dt.repeat == "Daily" ||
-          dt.repeat == "Weekly" ||
-          dt.repeat == "Monthly" ||
-          dt.repeat == "Yearly"
-        ) {
-          dt.repeat = null;
-        }
+        let map = {
+          title: "Subject",
+          start: "StartTime",
+          endt: "EndTime",
+          allday: "IsAllDay",
+          user_id: "EmployeeId",
+          description: "Description",
+          repeat: "RecurrenceRule"
+        };
 
-        let mapped = Object.keys(dt).map(oldKey => {
-          let newKey = map[oldKey];
-          let result = {};
-          result[newKey] = dt[oldKey];
-          return result;
+        let newDataArray = [];
+        data.forEach(dt => {
+          if (
+            dt.repeat == "Never" ||
+            dt.repeat == "Daily" ||
+            dt.repeat == "Weekly" ||
+            dt.repeat == "Monthly" ||
+            dt.repeat == "Yearly"
+          ) {
+            dt.repeat = null;
+          }
+          if (dt.description === "") {
+            dt.description = null;
+          }
+          console.log(dt);
+          let mapped = Object.keys(dt).map(oldKey => {
+            let newKey = map[oldKey];
+            let result = {};
+            result[newKey] = dt[oldKey];
+            return result;
+          });
+
+          let result = mapped.reduce((result, item) => {
+            let key = Object.keys(item)[0];
+            result[key] = item[key];
+            return result;
+          }, {});
+          newDataArray.push(result);
+        });
+        console.log("Planning Line 111", newDataArray);
+        this.data = extend([], newDataArray, null, true);
+      }
+
+      const dataOne = await userApi.findUsers();
+
+      if (Array.isArray(dataOne) && dataOne.length > 0) {
+        let map = {
+          _id: "Id",
+          firstname: "Text",
+          designation: "Designation"
+        };
+
+        newDataEmployeeArray = [];
+        dataOne.forEach(dt => {
+          let mapped = Object.keys(dt).map(oldKey => {
+            //if (oldKey === "id") oldKey = "_id";
+            let newKey = map[oldKey];
+
+            let result = {};
+            result[newKey] = dt[oldKey];
+            return result;
+          });
+
+          let result = mapped.reduce((result, item) => {
+            let key = Object.keys(item)[0];
+            result[key] = item[key];
+            return result;
+          }, {});
+
+          newDataEmployeeArray.push(result);
         });
 
-        let result = mapped.reduce((result, item) => {
-          let key = Object.keys(item)[0];
-          result[key] = item[key];
-          return result;
-        }, {});
-        newDataArray.push(result);
-      });
-
-      this.data = extend([], newDataArray, null, true);
-      const dataOne = await eventApi.findUsers();
-
-      map = {
-        firstname: "Text",
-        id: "Id",
-        designation: "Designation"
-      };
-
-      newDataEmployeeArray = [];
-      dataOne.forEach(dt => {
-        let mapped = Object.keys(dt).map(oldKey => {
-          let newKey = map[oldKey];
-          let result = {};
-          result[newKey] = dt[oldKey];
-          return result;
-        });
-
-        let result = mapped.reduce((result, item) => {
-          let key = Object.keys(item)[0];
-          result[key] = item[key];
-          return result;
-        }, {});
-        newDataEmployeeArray.push(result);
-      });
-
-      this.employeeData = newDataEmployeeArray;
-
+        this.employeeData = newDataEmployeeArray;
+      }
       this.setState({ loading: true });
     } catch (error) {
       console.error("Erreur lors du chargement des evenements !");
@@ -221,8 +229,8 @@ export default class BlockEvents extends SampleBase {
           args.data[0].Location !== null && args.data[0].Location !== undefined
             ? args.data[0].Location
             : "",
-          new Date(args.data[0].StartTime),
-          new Date(args.data[0].EndTime),
+          args.data[0].StartTime.toString(),
+          args.data[0].EndTime.toString(),
           args.data[0].IsAllDay !== null && args.data[0].IsAllDay !== undefined
             ? args.data[0].IsAllDay
             : false,
@@ -250,13 +258,13 @@ export default class BlockEvents extends SampleBase {
   }
 
   onEventRendered(args) {
-    // console.log(args);
+    //
     // count++;
-    // console.log(count);
+    //
     //this.employeeData = newDataEmployeeArray;
-    //console.log(newDataEmployeeArray);
+    //
     //$(".e-schedule-table.e-outer-table > tbody > tr:last").append(td);
-    // console.log(count);
+    //
     // $(".e-schedule-table .e-resource-column-table > tbody> tr")
     //     .find("td")
     //     .eq(1)
@@ -303,10 +311,7 @@ export default class BlockEvents extends SampleBase {
     );
   }
   onActionComplete(args) {
-    console.log("Line 293", args);
     if (args.requestType === "eventCreated") {
-      console.log("Line 294", this.dataSource);
-      console.log("Line 294", this.eventSettings);
     }
 
     for (let index = 0; index < newDataEmployeeArray.length; index++) {
@@ -319,12 +324,8 @@ export default class BlockEvents extends SampleBase {
             newDataEmployeeArray[index].Designation
         );
     }
-
-    // console.log("Line 294", this.eventSettings);
-    // console.log("Line 295", this.eventSettings.dataSource);
   }
   render() {
-    console.log("Line 298", this.employeeData);
     return (
       <div>
         {this.state.loading ? (
@@ -402,7 +403,7 @@ export default class BlockEvents extends SampleBase {
               <br />
               <div className="text-center">
                 <strong>Total</strong>
-                {console.log(this.employeeData)}
+                {
                 <br />
                 {newDataEmployeeArray.length > 0 &&
                   this.employeeData.map(d => {
